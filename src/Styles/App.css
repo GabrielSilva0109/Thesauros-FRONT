@@ -28,6 +28,27 @@
   color: #61dafb;
 }
 
+/* Estilo padrão (light) */
+body.light {
+  background-color: white;
+  color: black;
+}
+
+/* Estilo dark */
+body.dark {
+  background-color: black;
+  color: white;
+}
+
+/* Estilo do botão de alternância de tema */
+.toggle-theme-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
