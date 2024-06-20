@@ -12,9 +12,6 @@ const Container = styled.div`
 `
 
 
-
-
-
 const Header = () => {
   return (
     <Container>

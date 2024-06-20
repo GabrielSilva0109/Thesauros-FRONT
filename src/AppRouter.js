@@ -16,6 +16,7 @@ import Login from './components/Login/Login.jsx'
 
 const AppRouter = () => {
   return (
+    <ThemeProvider>
       <Router>
         <div className="app">
           <Routes>
@@ -29,6 +30,7 @@ const AppRouter = () => {
           <ToastContainer />
         </div>
       </Router>
+    </ThemeProvider>
   )
 }
 

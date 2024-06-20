@@ -69,7 +69,7 @@ const BtnLogin = styled(Link)`
 `
 
 const Navbar = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   const isActiveLink = (pathname, currentPath) => {
     return pathname === currentPath ? 'active' : '';
@@ -95,7 +95,6 @@ const Navbar = () => {
       <BtnLogin to="/login">
         Login
       </BtnLogin>
-      <ThemeProvider />
     </Container>
   )
 }
