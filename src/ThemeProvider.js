@@ -15,7 +15,14 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const TogleMode = styled.button`
+      background: gray;
+      padding: 16px;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      font-weight: bold;
 `
+
 const ThemeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem('darkMode')

@@ -14,7 +14,8 @@ const Container = styled.div`
 `
 
 const Title = styled.h2`
-  background-image: linear-gradient(-225deg, rgb(10, 2, 247) 0%, #3584A7 51%, #30D2BE 100%);
+  background: rgb(253,29,29);
+  background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
   -webkit-background-clip: text;
   color: transparent;
   font-size: 1.5rem;
@@ -47,21 +48,28 @@ const NavLink = styled(Link)`
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
 
   &:hover {
-    background-image: linear-gradient(-225deg, rgb(10, 2, 247) 0%, #3584A7 51%, #30D2BE 100%);
+    background: rgb(253,29,29);
+  background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
     -webkit-background-clip: text;
     color: transparent;
   }
 
   &.active {
-    color: #1e30f3;
+    background: rgb(253,29,29);
+    background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
+       -webkit-background-clip: text;
+    color: transparent;
   }
 `
 
 const BtnLogin = styled(Link)`
-  background: red;
+  background: rgb(253,29,29);
+  background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
   padding: 12px;
   text-decoration: none;
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
+    font-weight: bold;
+  border-radius: 8px;
 
   &:hover {
     background: darkred;
