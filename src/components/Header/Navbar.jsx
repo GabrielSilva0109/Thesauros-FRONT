@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from 'react-router-dom';
+import ThemeProvider from '../../ThemeProvider'
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -94,6 +95,7 @@ const Navbar = () => {
       <BtnLogin to="/login">
         Login
       </BtnLogin>
+      <ThemeProvider />
     </Container>
   )
 }

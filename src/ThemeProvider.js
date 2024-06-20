@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-components'
-
+import styled from 'styled-components'
 // Estilos globais para o body
 const GlobalStyles = createGlobalStyle`
   body {
@@ -14,6 +14,8 @@ const GlobalStyles = createGlobalStyle`
   }
 `
 
+const TogleMode = styled.button`
+`
 const ThemeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem('darkMode')
@@ -32,9 +34,10 @@ const ThemeProvider = ({ children }) => {
     <StyledThemeProvider theme={{ mode: darkMode ? 'dark' : 'light' }}>
       <GlobalStyles />
       {children}
-      <button onClick={toggleDarkMode}>
+
+      <TogleMode  onClick={toggleDarkMode}>
         {darkMode ? 'Light Mode' : 'Dark Mode'}
-      </button>
+      </TogleMode>
     </StyledThemeProvider>
   )
 }
