@@ -66,7 +66,7 @@ const Btns = styled.div`
 
 const BtnBuy = styled.button`
   background: linear-gradient(90deg, rgb(227 227 227) 0%, rgb(147 147 147) 50%, rgb(55 55 55) 100%);
-  padding: 12px 18px;
+  padding: 12px 26px;
   text-decoration: none;
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
   font-weight: bold;
@@ -83,7 +83,7 @@ const BtnBuy = styled.button`
 const BtnGames = styled.button`
  background: rgb(253,29,29);
   background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
-  padding: 12px 18px;
+  padding: 12px 26px;
   text-decoration: none;
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
   font-weight: bold;
