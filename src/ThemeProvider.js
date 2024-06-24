@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-components'
 import styled from 'styled-components'
 // Estilos globais para o body
@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
     transition: background-color 0.3s ease, color 0.3s ease;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 `
 
@@ -23,30 +23,31 @@ const TogleMode = styled.button`
       font-weight: bold;
 `
 
-const ThemeProvider = ({ children }) => {
+const ThemeContext = createContext();
+
+// Cria um hook personalizado para usar o contexto do tema
+export const useTheme = () => useContext(ThemeContext)
+
+
+export const ThemeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem('darkMode')
-    return savedMode ? JSON.parse(savedMode) : false
-  })
+    const savedMode = localStorage.getItem('darkMode');
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode))
-  }, [darkMode])
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
 
   const toggleDarkMode = () => {
-    setDarkMode((prevMode) => !prevMode)
-  }
+    setDarkMode((prevMode) => !prevMode);
+  };
 
   return (
-    <StyledThemeProvider theme={{ mode: darkMode ? 'dark' : 'light' }}>
-      <GlobalStyles />
+    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
       {children}
-
-      <TogleMode  onClick={toggleDarkMode}>
-        {darkMode ? 'Light Mode' : 'Dark Mode'}
-      </TogleMode>
-    </StyledThemeProvider>
-  )
-}
+    </ThemeContext.Provider>
+  );
+};
 
 export default ThemeProvider

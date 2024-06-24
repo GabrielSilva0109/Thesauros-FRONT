@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { Link, useLocation } from 'react-router-dom'
 import ThemeProvider from '../../ThemeProvider'
+import ToggleButton from "../Buttons/Togle"
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -76,11 +77,65 @@ const BtnLogin = styled(Link)`
   }
 `
 
+const Hamburger = styled.div`
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+
+  span {
+    background: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
+    height: 3px;
+    width: 25px;
+    margin: 4px 0;
+    transition: 0.4s;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`;
+
+const MobileNav = styled.ul`
+  display: ${({ open }) => (open ? 'flex' : 'none')};
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  background-color: ${(props) =>
+    props.theme.mode === 'dark' ? 'black' : 'white'};
+  z-index: 999;
+`;
+
+const MobileNavItem = styled.li`
+  margin: 10px 0;
+  text-align: center;
+`;
+
+const MobileNavLink = styled(Link)`
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
+
+  &:hover {
+    color: darkred;
+  }
+
+  &.active {
+    color: darkred;
+  }
+`;
+
+
 const Navbar = () => {
   const location = useLocation()
 
   const isActiveLink = (pathname, currentPath) => {
-    return pathname === currentPath ? 'active' : '';
+    return pathname === currentPath ? 'active' : ''
   }
 
   return (
@@ -91,7 +146,7 @@ const Navbar = () => {
           <NavLink to="/" className={isActiveLink(location.pathname, '/')}>Home</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/home" className={isActiveLink(location.pathname, '/misson')}>Mission</NavLink>
+          <NavLink to="/mission" className={isActiveLink(location.pathname, '/misson')}>Mission</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/games" className={isActiveLink(location.pathname, '/games')}>Games</NavLink>
@@ -100,9 +155,10 @@ const Navbar = () => {
           <NavLink to="/contact" className={isActiveLink(location.pathname, '/contact')}>Contact</NavLink>
         </NavItem>
       </Nav>
-      <BtnLogin to="/login">
+      <ToggleButton />
+      {/* <BtnLogin to="/login">
         Login
-      </BtnLogin>
+      </BtnLogin> */}
     </Container>
   )
 }
