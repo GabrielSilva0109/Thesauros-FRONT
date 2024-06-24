@@ -93,7 +93,7 @@ const Hamburger = styled.div`
   @media (max-width: 768px) {
     display: flex;
   }
-`;
+`
 
 const MobileNav = styled.ul`
   display: ${({ open }) => (open ? 'flex' : 'none')};
@@ -105,15 +105,17 @@ const MobileNav = styled.ul`
   top: 40px;
   left: 0;
   right: 0;
-  background-color: ${(props) =>
-    props.theme.mode === 'dark' ? 'black' : 'white'};
+  background: ${(props) => (props.theme.mode === 'dark' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(255, 255, 255, 0.6)')};
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
   z-index: 999;
-`;
+`
 
 const MobileNavItem = styled.li`
   margin: 10px 0;
   text-align: center;
-`;
+`
 
 const MobileNavLink = styled(Link)`
   text-decoration: none;
@@ -122,20 +124,36 @@ const MobileNavLink = styled(Link)`
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
 
   &:hover {
-    color: darkred;
+    background: rgb(253,29,29);
+  background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
   }
 
   &.active {
-    color: darkred;
+    background: rgb(253,29,29);
+    background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
+       -webkit-background-clip: text;
+    color: transparent;
   }
-`;
+`
 
+const Btns = styled.div`
+    @media(max-width: 768px){
+      display: none;
+    }
+`
 
 const Navbar = () => {
   const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const isActiveLink = (pathname, currentPath) => {
     return pathname === currentPath ? 'active' : ''
+  }
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
   }
 
   return (
@@ -155,7 +173,35 @@ const Navbar = () => {
           <NavLink to="/contact" className={isActiveLink(location.pathname, '/contact')}>Contact</NavLink>
         </NavItem>
       </Nav>
-      <ToggleButton />
+
+      <Hamburger onClick={toggleMenu}>
+        <span />
+        <span />
+        <span />
+      </Hamburger>
+
+      <MobileNav open={menuOpen}>
+        <MobileNavItem>
+          <MobileNavLink to="/" className={isActiveLink(location.pathname, '/')} onClick={toggleMenu}>Home</MobileNavLink>
+        </MobileNavItem>
+        <MobileNavItem>
+          <MobileNavLink to="/mission" className={isActiveLink(location.pathname, '/mission')} onClick={toggleMenu}>Mission</MobileNavLink>
+        </MobileNavItem>
+        <MobileNavItem>
+          <MobileNavLink to="/games" className={isActiveLink(location.pathname, '/games')} onClick={toggleMenu}>Games</MobileNavLink>
+        </MobileNavItem>
+        <MobileNavItem>
+          <MobileNavLink to="/contact" className={isActiveLink(location.pathname, '/contact')} onClick={toggleMenu}>Contact</MobileNavLink>
+        </MobileNavItem>
+        <MobileNavItem>
+          <ToggleButton />
+        </MobileNavItem>
+      </MobileNav>
+
+      <Btns>
+        <ToggleButton />
+      </Btns>
+      
       {/* <BtnLogin to="/login">
         Login
       </BtnLogin> */}
