@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from "react"
+import styled from "styled-components"
+import { Link, useLocation } from 'react-router-dom'
 import ThemeProvider from '../../ThemeProvider'
 
 const Container = styled.div`
@@ -91,7 +91,7 @@ const Navbar = () => {
           <NavLink to="/" className={isActiveLink(location.pathname, '/')}>Home</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/home" className={isActiveLink(location.pathname, '/home')}>Mission</NavLink>
+          <NavLink to="/home" className={isActiveLink(location.pathname, '/misson')}>Mission</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/games" className={isActiveLink(location.pathname, '/games')}>Games</NavLink>

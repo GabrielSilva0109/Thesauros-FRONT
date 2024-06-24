@@ -8,15 +8,47 @@ const Container = styled.div`
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
 `
 
+const Title = styled.h1`
+
+`
+
+const Text = styled.p`
+
+`
+
+const SubText = styled.p`
+
+`
+
+const Btns = styled.div`
+
+`
+
+const BtnBuy = styled.button`
+
+`
+
+const BtnGames = styled.button`
+
+`
+
 const Landing = () => {
 
   return (
     <Container >
       <Navbar />
-     <h1>Lading Page</h1>
-     <p>Content of the Home page styled based on the selected theme.</p>
+      <Text>Discovery the new era for Games  |  <span>Explore </span></Text>
+      <Title>Level up your game Expericience</Title>
+      <SubText></SubText>
+      <Btns>       
+        <BtnGames>
+          Play
+        </BtnGames>
+        <BtnBuy>
+          Buy
+        </BtnBuy>
+      </Btns>
     </Container>
-  
   )
 }
 
