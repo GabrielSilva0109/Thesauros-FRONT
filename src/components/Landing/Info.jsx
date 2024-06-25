@@ -123,7 +123,7 @@ const Info = () => {
         <RedBall />
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Info;
+export default Info
