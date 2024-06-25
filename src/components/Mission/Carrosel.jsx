@@ -1,27 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react'
-import styled from 'styled-components'
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
 
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;
   padding: 20px;
+    position: relative;
+ 
 `
 
 const Boxes = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 `
 
 const Box = styled.div`
-  background: gray;
-  color: white;
-  border-radius: 40px;
-  padding: 20px;
-  width: 300px;
-  height: 300px;
-  text-align: center;
-  flex-shrink: 0;
+    color: white;
+    width: 300px;
+    height: 300px;
+    text-align: center;
+    flex-shrink: 0;
+    background: rgb(179 179 179 / 28%);
+    border-radius: 20px;
+    padding: 20px;
+    backdrop-filter: blur(30px);
+     z-index: 1;
 `
 
 const Title = styled.h1`
@@ -52,68 +56,66 @@ const Text = styled.div`
   text-align: justify;
 `
 
+const moveAndShapeAnimation = keyframes`
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    border-radius: 50%;
+  }
+  25% {
+    transform: translate(300px, -50px) scale(1.2);
+    border-radius: 50%;
+  }
+  50% {
+    transform: translate(-200px, 50px) scale(1.4);
+    border-radius: 40%;
+  }
+  75% {
+    transform: translate(50px, 0) scale(1.1);
+    border-radius: 50%;
+  }
+`
+
+const RedBall = styled.div`
+  position: absolute;
+  top: 100px; 
+  left: calc(50% - 50px); 
+  width: 100px;
+  height: 100px; 
+  background: rgb(253, 29, 29);
+  background: linear-gradient(
+    90deg,
+    rgba(253, 29, 29, 1) 0%,
+    rgba(255, 0, 0, 1) 46%,
+    rgba(252, 176, 69, 1) 100%
+  );
+  border-radius: 50%; 
+  z-index: 0; 
+  animation: ${moveAndShapeAnimation} 15s ease-in-out infinite; 
+`
+
 const Carrosel = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 5; // Total de slides
-  const slideInterval = 5000; // Intervalo de troca em milissegundos (5 segundos)
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      // Função para trocar de slide
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
-    }, slideInterval);
-
-    return () => clearInterval(intervalId); // Limpa o intervalo ao desmontar o componente
-  }, []);
-
-  const renderSlides = () => {
-    
-    const slides = [
-      {
-        title: "Slide 1",
-        subtitle: "Subtítulo do Slide 1",
-        text: "Texto do Slide 1"
-      },
-      {
-        title: "Slide 2",
-        subtitle: "Subtítulo do Slide 2",
-        text: "Texto do Slide 2"
-      },
-      {
-        title: "Slide 3",
-        subtitle: "Subtítulo do Slide 3",
-        text: "Texto do Slide 3"
-      },
-      {
-        title: "Slide 4",
-        subtitle: "Subtítulo do Slide 4",
-        text: "Texto do Slide 4"
-      },
-      {
-        title: "Slide 5",
-        subtitle: "Subtítulo do Slide 5",
-        text: "Texto do Slide 5"
-      }
-    ];
-
-    return slides.map((slide, index) => (
-      <Box key={index} style={{ display: index === currentSlide ? 'block' : 'none' }}>
-        <Title>{slide.title}</Title>
-        <SubTitle>
-          <span>{slide.subtitle}</span>
-        </SubTitle>
-        <Text>{slide.text}</Text>
-      </Box>
-    ));
-  };
 
   return (
+    <>
     <Container>
-      <Boxes>
-        {renderSlides()}
-      </Boxes>
+        <Boxes>
+            <Box>
+            1
+            </Box>
+            <Box>
+            3
+            </Box>
+            <Box>
+            3
+            </Box>
+
+        </Boxes>
+        
+        <RedBall />
+     
     </Container>
-  );
+     </>
+  )
 }
 
-export default Carrosel;
+export default Carrosel
