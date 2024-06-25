@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import Navbar from "../Header/Navbar"
 import styled from "styled-components"
 import Info from "./Info"
+import Intelligence from "./Intelligence"
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -115,8 +116,9 @@ const Landing = () => {
           </BtnBuy>
         </Btns>
       </Content>
+
       <Info />
-      
+      <Intelligence/>
     </Container>
   )
 }
