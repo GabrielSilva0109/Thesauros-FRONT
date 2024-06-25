@@ -1,22 +1,33 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 const Container = styled.div`
   width: 80%;
   margin: 0 auto;
   padding: 20px;
   position: relative;
+  overflow: hidden; /* Para esconder partes dos slides que estiverem fora do container */
 `
 
 const Boxes = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  overflow-x: scroll; /* Para permitir rolagem horizontal em telas menores */
-  scrollbar-width: none; /* Remove a barra de rolagem do navegador */
+  gap: 5px;
+  overflow-x: auto; /* Permite rolagem horizontal */
+  scroll-snap-type: x mandatory; /* Define que a rolagem será feita em passos horizontais */
+  -webkit-overflow-scrolling: touch; /* Melhora o scroll em dispositivos móveis */
+  scrollbar-width: none; /* Esconde a barra de rolagem do navegador */
   -ms-overflow-style: none; /* IE and Edge */
   &::-webkit-scrollbar {
     display: none; /* Esconde a barra de rolagem do WebKit */
+  }
+
+  @media (max-width: 768px) {
+    gap: 0; /* Remove o espaço entre os slides em telas menores */
+    scroll-snap-type: x mandatory; /* Mantém o comportamento de rolagem em passos */
+    overflow-x: scroll; /* Permite rolagem horizontal em telas menores */
+    -webkit-overflow-scrolling: touch; /* Melhora o scroll em dispositivos móveis */
+    scrollbar-width: none; /* Esconde a barra de rolagem do navegador */
+    -ms-overflow-style: none; /* IE and Edge */
   }
 `
 
@@ -31,6 +42,11 @@ const Box = styled.div`
   padding: 20px;
   backdrop-filter: blur(30px);
   z-index: 1;
+
+  @media (max-width: 768px) {
+    width: 100%; /* Define que o slide ocupará toda a largura em telas menores */
+    scroll-snap-align: start; /* Define o alinhamento do início do slide */
+  }
 `
 
 const Title = styled.h1`
@@ -45,25 +61,6 @@ const Title = styled.h1`
   );
   -webkit-background-clip: text;
   color: transparent;
-`
-
-const moveAndShapeAnimation = keyframes`
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    border-radius: 50%;
-  }
-  25% {
-    transform: translate(300px, -50px) scale(1.2);
-    border-radius: 50%;
-  }
-  50% {
-    transform: translate(-200px, 50px) scale(1.4);
-    border-radius: 40%;
-  }
-  75% {
-    transform: translate(50px, 0) scale(1.1);
-    border-radius: 50%;
-  }
 `
 
 const RedBall = styled.div`
@@ -81,7 +78,6 @@ const RedBall = styled.div`
   );
   border-radius: 50%;
   z-index: 0;
-  animation: ${moveAndShapeAnimation} 15s ease-in-out infinite;
 `
 
 const Carrosel = () => {
