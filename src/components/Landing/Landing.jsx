@@ -27,6 +27,14 @@ const Title = styled.h1`
     cursor: pointer;
     margin: 10px;
 
+    
+    & span{
+        background: rgb(253,29,29);
+        background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
     @media(max-width: 768px) {
     font-size: 2.5rem;
     }
@@ -107,7 +115,7 @@ const Landing = () => {
       <Navbar />
       <Content>
         <Text>DISCOVERY THE NEW ERA FOR GAMES | <span> EXPLORE </span></Text>
-        <Title>Level up your <br></br> gaming Expericience</Title>
+        <Title>Level up your <br></br> <span>Gaming</span> Expericience</Title>
         <SubText>Explore the decentralized gaming platform where fun and innovation converge,
            with unique opportunities to earn tokens</SubText>
         <Btns>       
@@ -123,6 +131,7 @@ const Landing = () => {
       <Info />
 
       <Intelligence/>
+      
     </Container>
   )
 }
