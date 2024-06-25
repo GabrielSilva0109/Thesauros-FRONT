@@ -8,6 +8,9 @@ const Container = styled.div`
   background-color: ${(props) =>
     props.theme.mode === 'dark' ? 'black' : 'white'};
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
 `
 
 const Content = styled.div`
@@ -15,7 +18,7 @@ const Content = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 500px;
+    height: 300px;
 `
 
 const Title = styled.h1`
@@ -118,6 +121,7 @@ const Landing = () => {
       </Content>
 
       <Info />
+
       <Intelligence/>
     </Container>
   )
