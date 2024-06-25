@@ -26,6 +26,7 @@ const Main = styled.div`
 `
 
 const Top = styled.div`
+    padding: 50px 0px;
     width: 60%;
 
     @media(max-width: 768px){
@@ -35,14 +36,8 @@ const Top = styled.div`
 
 const Title = styled.h1`
     margin: 0px;
-    font-size: 2rem;
+    font-size: 2.6rem;
 
-    & span {
-      background: rgb(253,29,29);
-      background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
-      -webkit-background-clip: text;
-      color: transparent;
-  }
 
   @media(max-width: 768px){
       font-size: 1.2rem;
@@ -78,18 +73,10 @@ const Mission
       <Content>
         <Top>
           <Title>
-            Promote access to decentralized games and lotteries<br></br>
-            <span>Transparency </span> - <span>Security </span> - <span>Winnings </span> 
+            Promote access to decentralized <br></br>games and lotteries
           </Title>
         </Top>
        
-
-        <SubTitle>
-          <Title>
-          <span>HOW TO DO THIS?</span>
-          </Title>
-        </SubTitle>
-
         <Main>
           <Carrosel />
         </Main>
