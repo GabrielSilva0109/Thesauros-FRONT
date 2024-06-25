@@ -15,7 +15,7 @@ const Content = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 600px;
+    height: 500px;
 `
 
 const Title = styled.h1`
