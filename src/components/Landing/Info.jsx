@@ -65,13 +65,14 @@ const Title = styled.h1`
 const Boxes = styled.div`
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     gap: 10px;
 `
 
 const Box = styled.div` 
     display: flex;
     flex-direction: column;
+    
     width: 200px;
 `
 
@@ -101,7 +102,7 @@ const Info = () => {
                 <Box>
                     <SubTitle>100M</SubTitle>
                     <Text>
-                        Max suplly is 100M Tokens
+                        Max suplly Tokens
                     </Text>
                 </Box>
                 <Box>
