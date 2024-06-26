@@ -26,7 +26,7 @@ const Left = styled.div`
   border-radius: 20px;
   backdrop-filter: blur(10px);
   background: rgb(179 179 179 / 28%);
-  margin-right: -300px;
+  margin-right: -250px;
 `
 
 const Right = styled.div`
