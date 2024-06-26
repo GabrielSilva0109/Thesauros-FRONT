@@ -13,12 +13,11 @@ const Content = styled.div`
   align-items: center;
   height: 350px;
   gap: 10px;
-  margin-top: 50px;
+  margin-top: 100px;
 `
 
 const Left = styled.div`
   width: 30%;
-  height: 100%;
   border-radius: 20px;
   background: rgb(253, 29, 29);
   background: linear-gradient(90deg, rgba(253, 29, 29, 1) 0%, rgba(255, 0, 0, 1) 46%, rgba(252, 176, 69, 1) 100%);
@@ -43,9 +42,17 @@ const Form = styled.div`
   padding: 0 20px;
 `
 
-const Label = styled.label``
+const Label = styled.label`
+  color: white;
+  padding: 10px;
+`
 
-const Input = styled.input``
+const Input = styled.input`
+  border: none;
+  border-radius: 20px;
+  padding: 12px;
+  font-size: 1rem;
+`
 
 const Btns = styled.div`
   display: flex;
@@ -53,12 +60,30 @@ const Btns = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 10px;
-  padding: 5px;
+  padding: 10px;
 `
 
-const BtnLogin = styled.button``
+const BtnLogin = styled.button`
+  width: 200px;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  background: black;
+`
 
-const BtnGoogle = styled.button``
+const BtnGoogle = styled.button`
+  width: 200px;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+  background: white;
+`
 
 const BtnSing = styled.button`
   border: none;
@@ -68,10 +93,11 @@ const BtnSing = styled.button`
   font-weight: bold;
   font-size: 1rem;
 `
+
 const Text = styled.p`
   font-weight: bold;
   font-size: 1rem;
-  color: ${(props) => (props.theme.mode === 'dark' ? '#e3e3e3' : '#252525')};
+  color: black;
   text-align: justify;
   padding: 20px;
 `
@@ -85,11 +111,55 @@ const BackToLogin = styled(BtnSing)`
 `
 
 const Login = () => {
+  const URL = "https://thesauros.up.railway.app/api"
+
+
   const [showLogin, setShowLogin] = useState(true)
 
   const toggleForm = () => {
-    setShowLogin(!showLogin);
-  };
+    setShowLogin(!showLogin)
+  }
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(`${URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: "email@example.com",
+          password: "senha123",
+        }),
+      })
+
+
+      const data = await response.json()
+      console.log(data)
+    } catch (error) {
+      console.error("Erro ao fazer login:", error)
+    }
+  }
+
+  const handleSignup = async () => {
+    try {
+      const response = await fetch(`${URL}/createUser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "Nome do Usuário",
+          email: "email@example.com",
+          password: "senha123",
+        }),
+      });
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error)
+    }
+  }
 
   return (
     <Container>
@@ -107,7 +177,7 @@ const Login = () => {
 
             <Btns>
               <BtnLogin>Login</BtnLogin>
-              <BtnGoogle>Login with Google</BtnGoogle>
+              <BtnGoogle>Sing in Google</BtnGoogle>
             </Btns>
 
             <Text>
@@ -133,8 +203,7 @@ const Login = () => {
 
             <Btns>
               <BtnLogin>Sign up</BtnLogin>
-              {/* Example back button to switch back to login */}
-              <BackToLogin onClick={toggleForm}>Back to Login</BackToLogin>
+             
             </Btns>
 
             <Text>
@@ -142,6 +211,8 @@ const Login = () => {
               <BtnSing onClick={toggleForm}>Sign in</BtnSing>
             </Text>
           </Left>
+
+          <Right></Right>
         </Content>
       )}
     </Container>
