@@ -18,7 +18,10 @@ const Content = styled.div`
   height: 350px;
   gap: 10px;
   margin-top: 100px;
-  
+
+  @media(max-width: 768px){
+    flex-direction: column;
+  }
 `
 
 const Left = styled.div`
@@ -27,6 +30,11 @@ const Left = styled.div`
   backdrop-filter: blur(10px);
   background: rgb(179 179 179 / 28%);
   margin-right: -250px;
+
+    @media(max-width: 768px){
+      width: 80%;
+      margin-right: 0px;
+  }
 `
 
 const Right = styled.div`
@@ -121,8 +129,12 @@ const BackToLogin = styled(BtnSing)`
 const Img = styled.img`
   width: 500px;
   margin-top: -70px;
-`
 
+  @media(max-width: 768px){
+    width: 300px;
+    margin-top: -300px;
+  }
+`
 
 const Login = () => {
   const URL = "https://thesauros.up.railway.app/api"
