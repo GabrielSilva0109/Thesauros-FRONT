@@ -78,19 +78,21 @@ const Btns = styled.div`
 `
 
 const BtnBuy = styled.button`
-  background: linear-gradient(90deg, rgb(227 227 227) 0%, rgb(147 147 147) 50%, rgb(55 55 55) 100%);
-  padding: 12px 26px;
-  text-decoration: none;
-  color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
-  font-weight: bold;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao fundo */
+    background: linear-gradient(90deg, rgb(227 227 227) 0%, rgb(147 147 147) 50%, rgb(55 55 55) 100%);
+    padding: 12px 26px;
+    text-decoration: none;
+    color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao fundo */
+    cursor: pointer;
+    transition: 1s;
 
-  &:hover {
-    background: linear-gradient(90deg, rgba(150, 150, 150, 1) 0%, rgba(192, 192, 192, 1) 50%, rgba(0, 0, 0, 1) 100%);
-  }
+    &:hover {
+      transform: translateY(-5px);
+    }
 `
 
 const BtnGames = styled.button`
@@ -103,10 +105,13 @@ const BtnGames = styled.button`
   font-size: 1rem;
   border-radius: 8px;
   border: none;
+  cursor: pointer;
 
-  &:hover {
-    background: darkred;
-  }
+  transition: 0.8s;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
 `
 
 const Landing = () => {
