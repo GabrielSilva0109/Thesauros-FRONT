@@ -14,10 +14,10 @@ const Content = styled.div`
   position: relative;
   z-index: 1;
   width: 70%;
-    background: rgb(179 179 179 / 28%);
   border-radius: 20px;
   padding: 20px;
   backdrop-filter: blur(30px);
+  background: rgb(179 179 179 / 28%);
 `
 
 const moveAndShapeAnimation = keyframes`

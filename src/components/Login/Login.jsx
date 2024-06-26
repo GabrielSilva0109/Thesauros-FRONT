@@ -18,13 +18,15 @@ const Content = styled.div`
   height: 350px;
   gap: 10px;
   margin-top: 100px;
+  
 `
 
 const Left = styled.div`
   width: 30%;
   border-radius: 20px;
-  background: rgb(253, 29, 29);
-  background: linear-gradient(90deg, rgba(253, 29, 29, 1) 0%, rgba(255, 0, 0, 1) 46%, rgba(252, 176, 69, 1) 100%);
+  backdrop-filter: blur(10px);
+  background: rgb(179 179 179 / 28%);
+  margin-right: -300px;
 `
 
 const Right = styled.div`
@@ -115,8 +117,8 @@ const BackToLogin = styled(BtnSing)`
 `
 
 const Img = styled.img`
-  width: 400px;
-  margin-top: -40px;
+  width: 500px;
+  margin-top: -70px;
 `
 
 
