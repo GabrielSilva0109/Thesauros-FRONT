@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Navbar from "../Header/Navbar";
 import styled from "styled-components";
 
+
+import thesa from '../../IMG/Icons/Thesauros2.png'
+
+
 const Container = styled.div`
   background-color: ${(props) => (props.theme.mode === 'dark' ? 'black' : 'white')};
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
@@ -186,7 +190,10 @@ const Login = () => {
             </Text>
           </Left>
 
-          <Right></Right>
+          <Right>
+
+            <Img src={thesa}/>
+          </Right>
         </Content>
       ) : (
         <Content>
