@@ -4,6 +4,7 @@ import styled from "styled-components"
 import Info from "./Info"
 import Intelligence from "./Intelligence"
 import Footer from "../Footer/Footer"
+import { Link } from "react-router-dom"
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -95,8 +96,8 @@ const BtnBuy = styled.button`
     }
 `
 
-const BtnGames = styled.button`
- background: rgb(253,29,29);
+const BtnGames = styled(Link)`
+  background: rgb(253,29,29);
   background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
   padding: 12px 26px;
   text-decoration: none;
@@ -127,7 +128,7 @@ const Landing = () => {
         <SubText>Explore the decentralized gaming platform where fun and innovation converge,
            with unique opportunities to earn tokens</SubText>
         <Btns>       
-          <BtnGames>
+          <BtnGames to={"/login"}>
             Play
           </BtnGames>
           <BtnBuy>
