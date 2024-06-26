@@ -135,7 +135,11 @@ const Carrosel = () => {
         <Boxes>
           <Box>
             <Title>Transparency</Title>
-
+            <List>
+              <ListItem>Blockchain Audits: Utilization of smart contracts to ensure transparency in transactions and lottery results.</ListItem>
+              <ListItem>Public Ledger: All transaction records and results are public and easily verifiable.</ListItem>
+              <ListItem>Open Source: Open-source code allows anyone to review how the system operates and ensure its integrity.</ListItem>
+            </List>
           </Box>
           <Box>
             <Title>Security</Title>
