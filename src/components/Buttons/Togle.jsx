@@ -9,6 +9,7 @@ const TogleMode = styled.button`
   border: none;
   color: white;
   font-weight: bold;
+  cursor: pointer;
 `
 
 const ToggleButton = () => {

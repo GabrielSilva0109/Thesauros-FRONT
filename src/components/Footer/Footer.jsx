@@ -6,12 +6,12 @@ import styled from "styled-components"
 import thesa from '../../IMG/Icons/Thesauros2.png'
 import insta from '../../IMG/Icons/Insta48.png'
 
-
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.mode === 'dark' ? 'black' : 'white'};
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
 `
+
 const Content = styled.div`
     
     display: flex;
@@ -59,7 +59,7 @@ const Text = styled.div`
 `
 
 const A = styled.a`
-    transition: 1.5s;
+    transition: 1s;
     text-decoration: none;
     color: inherit;
 
