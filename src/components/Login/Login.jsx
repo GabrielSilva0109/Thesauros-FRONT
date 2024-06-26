@@ -49,7 +49,6 @@ const Form = styled.div`
 `
 
 const Label = styled.label`
-  color: white;
   padding: 10px;
 `
 
@@ -94,7 +93,10 @@ const BtnGoogle = styled.button`
 const BtnSing = styled.button`
   border: none;
   background: none;
-  color: white;
+  background: rgb(253,29,29);
+  background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(255,0,0,1) 46%, rgba(252,176,69,1) 100%);
+  -webkit-background-clip: text;
+  color: transparent;
   cursor: pointer;
   font-weight: bold;
   font-size: 1rem;
