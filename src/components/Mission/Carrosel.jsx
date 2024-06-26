@@ -120,12 +120,28 @@ const RedBall = styled.div`
 `
 
 const List = styled.ul`
-  list-style-type: none;
-  padding: 0;
+    padding: 0;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: start;
+    text-align: start;
 `
 
 const ListItem = styled.li`
+  color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
   margin-bottom: 10px;
+  font-weight: 600;
+
+  & span{
+    background: rgb(253, 29, 29);
+    background: linear-gradient(90deg, rgba(253, 29, 29, 1) 0%, rgba(255, 0, 0, 1) 46%, rgba(252, 176, 69, 1) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 1.05rem;
+    font-weight: bold;
+  }
+  
 `
 
 const Carrosel = () => {
@@ -136,18 +152,26 @@ const Carrosel = () => {
           <Box>
             <Title>Transparency</Title>
             <List>
-              <ListItem>Blockchain Audits: Utilization of smart contracts to ensure transparency in transactions and lottery results.</ListItem>
-              <ListItem>Public Ledger: All transaction records and results are public and easily verifiable.</ListItem>
-              <ListItem>Open Source: Open-source code allows anyone to review how the system operates and ensure its integrity.</ListItem>
+              <ListItem><span>Blockchain Audits</span> <br /> Utilization of smart contracts to ensure transparency in transactions and lottery results.</ListItem>
+              <ListItem><span>Public Ledger </span> <br /> All transaction records and results are public and easily verifiable.</ListItem>
+              <ListItem><span>Open Source </span> <br /> Open-source code allows anyone to review how the system operates and ensure its integrity.</ListItem>
             </List>
           </Box>
           <Box>
             <Title>Security</Title>
-
+            <List>
+              <ListItem><span>Decentralized Storage</span> <br /> Data stored in a decentralized manner to avoid single points of failure and increase security.</ListItem>
+              <ListItem><span>Encryption:</span> <br /> Robust encryption methods used to protect sensitive data and transactions.</ListItem>
+              <ListItem><span>Multi-factor Authentication </span> <br /> Additional layers of authentication to ensure secure access to user accounts.</ListItem>
+            </List>
           </Box>
           <Box>
             <Title>Winnings</Title>
-
+            <List>
+              <ListItem><span>Instant Payouts</span> <br /> Automatic and instant payout of prizes directly into users' digital wallets.</ListItem>
+              <ListItem><span>Fair RNG </span> <br /> Transparent and auditable random number generators (RNG) to ensure fair outcomes.</ListItem>
+              <ListItem><span>Jackpots and Bonuses </span> <br /> Attractive jackpots and bonuses offered to increase player participation and winnings.</ListItem>
+            </List>
           </Box>
         </Boxes>
         

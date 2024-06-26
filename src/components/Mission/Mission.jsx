@@ -64,8 +64,7 @@ const Separator = styled.div`
     border: 1px solid gray;
 `
 
-const Mission
- = () => {
+const Mission = () => {
 
   return (
     <Container >
@@ -73,7 +72,8 @@ const Mission
       <Content>
         <Top>
           <Title>
-            Promote access to decentralized <br></br>games and lotteries
+            Promoting access to decentralized services for
+            Games and Lotteries
           </Title>
         </Top>
        
