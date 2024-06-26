@@ -114,6 +114,12 @@ const BackToLogin = styled(BtnSing)`
   margin-top: 10px;
 `
 
+const Img = styled.img`
+  width: 400px;
+  margin-top: -40px;
+`
+
+
 const Login = () => {
   const URL = "https://thesauros.up.railway.app/api"
 
@@ -219,11 +225,14 @@ const Login = () => {
             </Text>
           </Left>
 
-          <Right></Right>
+          <Right>
+
+            <Img src={thesa}/>
+          </Right>
         </Content>
       )}
     </Container>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
