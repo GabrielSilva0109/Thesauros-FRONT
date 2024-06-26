@@ -3,6 +3,7 @@ import Navbar from "../Header/Navbar"
 import styled from "styled-components"
 import Info from "./Info"
 import Intelligence from "./Intelligence"
+import Footer from "../Footer/Footer"
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -111,6 +112,8 @@ const BtnGames = styled.button`
 const Landing = () => {
 
   return (
+    <>
+    
     <Container >
       <Navbar />
       <Content>
@@ -133,6 +136,8 @@ const Landing = () => {
       <Intelligence/>
       
     </Container>
+    <Footer />
+    </>
   )
 }
 
