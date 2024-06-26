@@ -52,6 +52,7 @@ const Title = styled.h1`
   color: transparent;
 `
 
+// Computer 
 const RedBallAnimation = keyframes`
   0% {
     transform: translate(0, 0) scale(1) rotate(0);
@@ -75,6 +76,7 @@ const RedBallAnimation = keyframes`
   }
 `
 
+// Mobile
 const RedBallAnimation2 = keyframes`
   0% {
     transform: translate(0, 0) scale(1) rotate(0);
@@ -117,6 +119,15 @@ const RedBall = styled.div`
   }
 `
 
+const List = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`
+
+const ListItem = styled.li`
+  margin-bottom: 10px;
+`
+
 const Carrosel = () => {
   return (
     <>
@@ -124,12 +135,15 @@ const Carrosel = () => {
         <Boxes>
           <Box>
             <Title>Transparency</Title>
+
           </Box>
           <Box>
             <Title>Security</Title>
+
           </Box>
           <Box>
             <Title>Winnings</Title>
+
           </Box>
         </Boxes>
         
