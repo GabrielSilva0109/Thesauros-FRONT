@@ -1,6 +1,7 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from "react"
+import { Link, useLocation } from "react-router-dom"
 import styled from "styled-components"
+import ToggleButton from "../Buttons/Togle"
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -144,9 +145,39 @@ const Btns = styled.div`
 `
 
 const Header = () => {
+
+  const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const isActiveLink = (pathname, currentPath) => {
+    return pathname === currentPath ? 'active' : ''
+  }
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
+  }
+
+
   return (
     <Container>
-      Header
+      <Nav>
+        <NavItem>
+          <NavLink to="/home" className={isActiveLink(location.pathname, '/home')}>Home</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/minefield" className={isActiveLink(location.pathname, '/minefield')}>Minefield</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/roulette" className={isActiveLink(location.pathname, '/roulette')}>Roulette</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/account" className={isActiveLink(location.pathname, '/account')}>Account</NavLink>
+        </NavItem>
+      </Nav>
+
+      <Btns>
+        <ToggleButton />
+      </Btns>
     </Container>
   )
 }
