@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import thesa from '../../IMG/Icons/Thesauros2.png'
 
-
 const Container = styled.div`
   background-color: ${(props) => (props.theme.mode === 'dark' ? 'black' : 'white')};
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
@@ -156,7 +155,6 @@ const Login = () => {
   const [showLogin, setShowLogin] = useState(true)
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
-  const [toggle, setToggle] = useState(false)
 
   const [formData, setFormData] = useState({
     name: '',

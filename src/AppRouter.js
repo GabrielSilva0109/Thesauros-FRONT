@@ -14,9 +14,7 @@ import Games from './components/Games/Games.jsx'
 import Contact from './components/Contact/Contact.jsx'
 import Login from './components/Login/Login.jsx'
 
-const AppRouter = () => {
-  const isAuthenticated = !!localStorage.getItem("user")
-  
+const AppRouter = () => {  
   return (
     <>
       <Router>
@@ -32,7 +30,7 @@ const AppRouter = () => {
           <ToastContainer />
         </div>
       </Router>
-      </>
+    </>
     
   )
 }

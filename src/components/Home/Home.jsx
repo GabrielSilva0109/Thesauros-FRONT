@@ -21,7 +21,7 @@ const Home = () => {
   const redirectToLogin = async () => {
     if (!user || user === null) {
         toast.warning("Faça o login para acessar a página Home.")
-        await navigate('/login')
+        await navigate('/')
     }
   }
 
