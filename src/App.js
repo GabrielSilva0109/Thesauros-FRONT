@@ -6,6 +6,9 @@ import ToggleButton from '../src/components/Buttons/Togle.jsx'
 import logo from './logo.svg'
 import '../src/Styles/App.css'
 import AppRouter from './AppRouter'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const ThemedApp = () => {
   const { darkMode } = useTheme();

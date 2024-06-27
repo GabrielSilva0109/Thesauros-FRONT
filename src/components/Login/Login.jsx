@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import Navbar from "../Header/Navbar";
-import styled from "styled-components";
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import Navbar from "../Header/Navbar"
+import styled from "styled-components"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import thesa from '../../IMG/Icons/Thesauros2.png'
 
@@ -151,6 +154,8 @@ const Login = () => {
   // const URL = "https://thesauros.up.railway.app/api"
   const URL = "http://localhost:3333/api"
   const [showLogin, setShowLogin] = useState(true)
+  const navigate = useNavigate()
+  const [user, setUser] = useState()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -159,10 +164,10 @@ const Login = () => {
     birth: '',
   })
 
+
   const toggleForm = () => {
     setShowLogin(!showLogin)
   }
-
 
   // Get Input 
   const handleInputChange = (e) => {
@@ -187,10 +192,20 @@ const Login = () => {
         }),
       })
 
-      const data = await response.json()
-      console.log(data)
+      if (response.ok) {
+        const userData = await response.json()
+        if(userData){
+          navigate('/home', { state: {user: userData}})
+        } else {
+          toast.error('Erro the get Info of User in Login')
+        }
+        toast.success("Login successful!")
+      } else {
+        toast.error("Login failed. Please check your credentials.")
+      }
     } catch (error) {
-      console.error("Erro ao fazer login:", error)
+      console.error("Error logging in:", error);
+      toast.error("Error logging in. Please try again later.")
     }
   }
 
@@ -209,9 +224,17 @@ const Login = () => {
         }),
       })
       const data = await response.json()
-      console.log(data)
+
+      if(response.ok){
+        toast.success("Signup sucessful!")
+        toast.success("Go to Login!")
+      } else {
+        toast.error(`Signup failed: ${data.message || "Please try again."}`)
+      }
+      
     } catch (error) {
       console.error("Erro ao cadastrar:", error)
+      toast.error("Error signing up. Please try again later.")
     }
   }
 
@@ -301,6 +324,7 @@ const Login = () => {
           </Right>
         </Content>
       )}
+      <ToastContainer />
     </Container>
   )
 }

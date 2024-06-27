@@ -1,6 +1,6 @@
 // src/AppRouter.js
 import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -15,6 +15,8 @@ import Contact from './components/Contact/Contact.jsx'
 import Login from './components/Login/Login.jsx'
 
 const AppRouter = () => {
+  const isAuthenticated = !!localStorage.getItem("user")
+  
   return (
     <>
       <Router>
