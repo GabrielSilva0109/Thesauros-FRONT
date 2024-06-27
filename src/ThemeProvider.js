@@ -23,31 +23,29 @@ const TogleMode = styled.button`
       font-weight: bold;
 `
 
-const ThemeContext = createContext();
+const ThemeContext = createContext()
 
-// Cria um hook personalizado para usar o contexto do tema
 export const useTheme = () => useContext(ThemeContext)
-
 
 export const ThemeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem('darkMode');
-    return savedMode ? JSON.parse(savedMode) : false;
-  });
+    const savedMode = localStorage.getItem('darkMode')
+    return savedMode ? JSON.parse(savedMode) : false
+  })
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-  }, [darkMode]);
+    localStorage.setItem('darkMode', JSON.stringify(darkMode))
+  }, [darkMode])
 
   const toggleDarkMode = () => {
-    setDarkMode((prevMode) => !prevMode);
-  };
+    setDarkMode((prevMode) => !prevMode)
+  }
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
       {children}
     </ThemeContext.Provider>
-  );
-};
+  )
+}
 
 export default ThemeProvider

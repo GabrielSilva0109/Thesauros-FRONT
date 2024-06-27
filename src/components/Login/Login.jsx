@@ -155,7 +155,8 @@ const Login = () => {
   const URL = "http://localhost:3333/api"
   const [showLogin, setShowLogin] = useState(true)
   const navigate = useNavigate()
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
+  const [toggle, setToggle] = useState(false)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -163,7 +164,6 @@ const Login = () => {
     password: '',
     birth: '',
   })
-
 
   const toggleForm = () => {
     setShowLogin(!showLogin)
