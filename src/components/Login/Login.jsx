@@ -160,7 +160,7 @@ const Login = () => {
     name: '',
     email: '',
     password: '',
-    birth: '',
+    date_birth: '',
   })
 
   const toggleForm = () => {
@@ -209,7 +209,7 @@ const Login = () => {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch(`${URL}/createUser`, {
+      const response = await fetch(`${URL}/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -218,7 +218,7 @@ const Login = () => {
           name: formData.name,
           email:  formData.email,
           password:  formData.password,
-          birth:  formData.birth,
+          date_birth:  formData.date_birth,
         }),
       })
       const data = await response.json()
@@ -227,7 +227,8 @@ const Login = () => {
         toast.success("Signup sucessful!")
         toast.success("Go to Login!")
       } else {
-        toast.error(`Signup failed: ${data.message || "Please try again."}`)
+        console.log(data)
+        toast.error(`Signup fassiled: ${data.message || "Please try again."}`)
       }
       
     } catch (error) {
@@ -301,8 +302,8 @@ const Login = () => {
               <Label>Birth</Label>
               <Input 
                 type="date" 
-                name="birth"
-                value={formData.birth}
+                name="date_birth"
+                value={formData.date_birth}
                 onChange={handleInputChange} />
             </Form>
 
