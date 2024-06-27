@@ -157,6 +157,8 @@ const Balance = styled.div`
     padding: 10px;
     border-radius: 20px;
     background: #1c1c1e;
+    font-weight: bold;
+    color: #00f900;
 `
 
 const Header = ({ user }) => {
@@ -173,7 +175,6 @@ const Header = ({ user }) => {
     setMenuOpen(!menuOpen)
   }
 
-
   return (
     <Container>
       <Img src={thesa}/>
@@ -185,16 +186,16 @@ const Header = ({ user }) => {
           <NavLink to="/minefield" state={{ user }} className={isActiveLink(location.pathname, '/minefield')}>Minefield</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/roulette" className={isActiveLink(location.pathname, '/roulette')}>Roulette</NavLink>
+          <NavLink to="/roulette" state={{ user }} className={isActiveLink(location.pathname, '/roulette')}>Roulette</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/account" className={isActiveLink(location.pathname, '/account')}>Account</NavLink>
+          <NavLink to="/account" state={{ user }} className={isActiveLink(location.pathname, '/account')}>Account</NavLink>
         </NavItem>
       </Nav>
 
       <Btns>
         <Balance>
-          {userOn.name}
+          {userOn.balance}
         </Balance>
         <ToggleButton />
       </Btns>
