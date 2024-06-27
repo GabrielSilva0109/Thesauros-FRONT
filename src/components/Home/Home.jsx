@@ -17,9 +17,7 @@ const Home = () => {
   const { state } = useLocation()
   const user = state?.user
   const navigate = useNavigate()
-
-  console.log("usuario logou:", user)
-
+ 
   const redirectToLogin = async () => {
     if (!user || user === null) {
         toast.warning("Faça o login para acessar a página Home.")
@@ -31,13 +29,12 @@ const Home = () => {
     redirectToLogin()
   }, [user, navigate])
 
-  useEffect(() => {
-  }, [user, navigate])
-
   return (
     <Container >
       <Header />
-      <h1>Hello {user.email}</h1>
+      {user && (
+      <p>Bem-vindo, {user.name}! Aqui está o conteúdo personalizado para você.</p>
+    )}
       <p>Content of the Home page styled based on the selected theme.</p>
     </Container>
   )

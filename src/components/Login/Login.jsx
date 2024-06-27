@@ -154,7 +154,6 @@ const Login = () => {
   const URL = "http://localhost:3333/api"
   const [showLogin, setShowLogin] = useState(true)
   const navigate = useNavigate()
-  const [user, setUser] = useState()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -189,13 +188,11 @@ const Login = () => {
           password: formData.password,
         }),
       })
-
   
       if (response.ok) {
         const userData = await response.json()
-        console.log("retornooooo:: ", userData)
         if (userData) {
-          toast.success("Login successful!")
+          toast.success("Login successful!", userData.name)
           navigate('/home', { state: { user: userData } })
         } else {
           toast.error('Failed to get user information.')
