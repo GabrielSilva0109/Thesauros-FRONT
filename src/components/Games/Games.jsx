@@ -126,7 +126,7 @@ const Games = () => {
           <SubTitle>Roulette</SubTitle>
            <SubText>
             In this game, the player chooses a color to bet on. If successful, they 
-            recover their investment and can multiply it by 10 by hitting a specific
+            recover their investment and can multiply it by 10x by hitting a specific
              color. This unique color offers a special multiplier, providing an exciting
               opportunity to significantly increase winnings.
            </SubText>

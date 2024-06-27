@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Navbar from "../Header/Navbar";
 import styled from "styled-components";
 
-
 import thesa from '../../IMG/Icons/Thesauros2.png'
 
 
@@ -65,6 +64,7 @@ const Input = styled.input`
   border-radius: 20px;
   padding: 12px;
   font-size: 1rem;
+  width: 90%;
 `
 
 const Btns = styled.div`
@@ -85,6 +85,12 @@ const BtnLogin = styled.button`
   font-weight: bold;
   font-size: 1rem;
   background: black;
+  transition: 1s;
+  cursor: pointer;
+
+  &: hover{
+    transform: scale(1.1)
+  }
 `
 
 const BtnGoogle = styled.button`
@@ -96,6 +102,11 @@ const BtnGoogle = styled.button`
   font-weight: bold;
   font-size: 1rem;
   background: white;
+  cursor: pointer;
+
+  &: hover{
+    transform: scale(1.1)
+  }
 `
 
 const BtnSing = styled.button`
@@ -137,13 +148,30 @@ const Img = styled.img`
 `
 
 const Login = () => {
-  const URL = "https://thesauros.up.railway.app/api"
-
-
+  // const URL = "https://thesauros.up.railway.app/api"
+  const URL = "http://localhost:3333/api"
   const [showLogin, setShowLogin] = useState(true)
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    birth: '',
+  })
 
   const toggleForm = () => {
     setShowLogin(!showLogin)
+  }
+
+
+  // Get Input 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
   }
 
   const handleLogin = async () => {
@@ -154,11 +182,10 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: "email@example.com",
-          password: "senha123",
+          email: formData.email,
+          password: formData.password,
         }),
       })
-
 
       const data = await response.json()
       console.log(data)
@@ -175,12 +202,13 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: "Nome do Usuário",
-          email: "email@example.com",
-          password: "senha123",
+          name: formData.name,
+          email:  formData.email,
+          password:  formData.password,
+          birth:  formData.birth,
         }),
-      });
-      const data = await response.json();
+      })
+      const data = await response.json()
       console.log(data)
     } catch (error) {
       console.error("Erro ao cadastrar:", error)
@@ -196,7 +224,7 @@ const Login = () => {
             <Title>Login</Title>
             <Form>
               <Label>Email</Label>
-              <Input placeholder="example@mail.com" />
+              <Input placeholder="example@mail.com" type="text" name="email" value={formData.email} onChange={handleInputChange}/>
               <Label>Password</Label>
               <Input placeholder="*******" />
             </Form>
@@ -228,11 +256,13 @@ const Login = () => {
               <Input placeholder="example@mail.com" />
               <Label>Password</Label>
               <Input placeholder="*******" />
+              <Label>Birth</Label>
+              <Input type="date" />
+              
             </Form>
 
             <Btns>
-              <BtnLogin>Sign up</BtnLogin>
-             
+              <BtnLogin>Sign up</BtnLogin>     
             </Btns>
 
             <Text>
