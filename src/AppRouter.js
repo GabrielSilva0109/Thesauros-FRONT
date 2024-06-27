@@ -13,6 +13,7 @@ import Mission from './components/Mission/Mission.jsx'
 import Games from './components/Games/Games.jsx'
 import Contact from './components/Contact/Contact.jsx'
 import Login from './components/Login/Login.jsx'
+import Minefield from './components/Minefield/Minefield.jsx'
 
 const AppRouter = () => {  
   return (
@@ -26,6 +27,8 @@ const AppRouter = () => {
             <Route path="/games" element={<Games />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
+
+            <Route path='/minefield' element={<Minefield/>} />
           </Routes>
           <ToastContainer />
         </div>

@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom"
 import styled from "styled-components"
 import ToggleButton from "../Buttons/Togle"
 
+import thesa from '../../IMG/Icons/Thesauros2.png'
+
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.mode === 'dark' ? 'black' : 'white'};
@@ -13,6 +15,9 @@ const Container = styled.div`
   justify-content: space-around;
 `
 
+const Img = styled.img`
+    width: 35px;
+`
 
 const Title = styled.h2`
   background: rgb(253,29,29);
@@ -139,13 +144,24 @@ const MobileNavLink = styled(Link)`
 `
 
 const Btns = styled.div`
+    display: flex;
+    gap: 10px;
+
     @media(max-width: 768px){
       display: none;
     }
 `
 
-const Header = () => {
+const Balance = styled.div`
+    width: 100px;
+    padding: 10px;
+    border-radius: 20px;
+    background: #1c1c1e;
+`
 
+const Header = ({ user }) => {
+  const { state } = useLocation()
+  const userOn = state?.user
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -160,12 +176,13 @@ const Header = () => {
 
   return (
     <Container>
+      <Img src={thesa}/>
       <Nav>
         <NavItem>
-          <NavLink to="/home" className={isActiveLink(location.pathname, '/home')}>Home</NavLink>
+          <NavLink to="/home" state={{ user }}  className={isActiveLink(location.pathname, '/home')}>Home</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/minefield" className={isActiveLink(location.pathname, '/minefield')}>Minefield</NavLink>
+          <NavLink to="/minefield" state={{ user }} className={isActiveLink(location.pathname, '/minefield')}>Minefield</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/roulette" className={isActiveLink(location.pathname, '/roulette')}>Roulette</NavLink>
@@ -176,6 +193,9 @@ const Header = () => {
       </Nav>
 
       <Btns>
+        <Balance>
+          {userOn.name}
+        </Balance>
         <ToggleButton />
       </Btns>
     </Container>

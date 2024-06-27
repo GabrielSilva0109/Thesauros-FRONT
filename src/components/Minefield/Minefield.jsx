@@ -13,21 +13,7 @@ const Container = styled.div`
   margin: 0;
 `
 
-const Content = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
-`
-
-const Top = styled.div`
-  width: 60%;
-  backdrop-filter: blur(30px);
-  background: rgb(179 179 179 / 28%);
-  border-radius: 20px;
-`
-
-const Home = () => {
+const Minefield = () => {
   const { state } = useLocation()
   const user = state?.user
   const navigate = useNavigate()
@@ -45,18 +31,11 @@ const Home = () => {
 
   return (
     <Container >
-      <Header user={user}/>
-      <Content>
-        <Top>
-          <h1>Bem vindo a Thesauros <br /> {user.name}</h1>
-          <p>Content of the Home page styled based on the selected theme.</p>
-
-        </Top>
-      </Content>
-      
-      
+       <Header user={user}/>
+      <h1>Game Minefield {user.name}</h1>
+    
     </Container>
   )
 }
 
-export default Home
+export default Minefield

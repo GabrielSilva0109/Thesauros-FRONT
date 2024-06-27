@@ -72,7 +72,6 @@ const Boxes = styled.div`
 const Box = styled.div` 
     display: flex;
     flex-direction: column;
-    
     width: 200px;
 `
 

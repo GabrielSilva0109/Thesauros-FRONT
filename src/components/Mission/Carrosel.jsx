@@ -27,7 +27,7 @@ const Boxes = styled.div`
 const Box = styled.div`
   color: white;
   width: 300px;
-  height: 300px;
+  height: 330px;
   text-align: center;
   flex-shrink: 0;
   background: rgb(179 179 179 / 38%);
@@ -67,7 +67,7 @@ const RedBallAnimation = keyframes`
     border-radius: 40%;
   }
   75% {
-    transform: translate(170px, -70px) scale(1.1) rotate(270deg);
+    transform: translate(170px, -70px) scale(0.7) rotate(270deg);
     border-radius: 20%;
   }
   100% {
