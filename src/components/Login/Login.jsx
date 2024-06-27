@@ -224,13 +224,20 @@ const Login = () => {
             <Title>Login</Title>
             <Form>
               <Label>Email</Label>
-              <Input placeholder="example@mail.com" type="text" name="email" value={formData.email} onChange={handleInputChange}/>
+              <Input placeholder="example@mail.com"
+                type="text" name="email"
+                value={formData.email}
+                onChange={handleInputChange}/>
               <Label>Password</Label>
-              <Input placeholder="*******" />
+              <Input placeholder="*******" 
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}/>
             </Form>
 
             <Btns>
-              <BtnLogin>Login</BtnLogin>
+              <BtnLogin onClick={handleLogin}>Login</BtnLogin>
               <BtnGoogle>Sing in Google</BtnGoogle>
             </Btns>
 
@@ -241,7 +248,6 @@ const Login = () => {
           </Left>
 
           <Right>
-
             <Img src={thesa}/>
           </Right>
         </Content>
@@ -251,18 +257,36 @@ const Login = () => {
             <Title>Sign up for free</Title>
             <Form>
               <Label>Name</Label>
-              <Input placeholder="Your name" />
+              <Input 
+                placeholder="Your name" 
+                type="text" 
+                name="name" 
+                value={formData.name} 
+                onChange={handleInputChange}  />
               <Label>Email</Label>
-              <Input placeholder="example@mail.com" />
+              <Input  
+                placeholder="example@mail.com" 
+                type="text" 
+                name="email" 
+                value={formData.email} 
+                onChange={handleInputChange}  />
               <Label>Password</Label>
-              <Input placeholder="*******" />
+              <Input 
+                placeholder="*******" 
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}/>
               <Label>Birth</Label>
-              <Input type="date" />
-              
+              <Input 
+                type="date" 
+                name="birth"
+                value={formData.birth}
+                onChange={handleInputChange} />
             </Form>
 
             <Btns>
-              <BtnLogin>Sign up</BtnLogin>     
+              <BtnLogin onClick={handleSignup}>Sign up</BtnLogin>     
             </Btns>
 
             <Text>
