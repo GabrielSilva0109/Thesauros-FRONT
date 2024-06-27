@@ -154,7 +154,7 @@ const Login = () => {
   const URL = "http://localhost:3333/api"
   const [showLogin, setShowLogin] = useState(true)
   const navigate = useNavigate()
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -190,14 +190,16 @@ const Login = () => {
         }),
       })
 
+  
       if (response.ok) {
         const userData = await response.json()
-        if(userData){
-          navigate('/home', { state: {user: userData}})
+        console.log("retornooooo:: ", userData)
+        if (userData) {
+          toast.success("Login successful!")
+          navigate('/home', { state: { user: userData } })
         } else {
-          toast.error('Erro the get Info of User in Login')
+          toast.error('Failed to get user information.')
         }
-        toast.success("Login successful!")
       } else {
         toast.error("Login failed. Please check your credentials.")
       }
@@ -205,7 +207,8 @@ const Login = () => {
       console.error("Error logging in:", error);
       toast.error("Error logging in. Please try again later.")
     }
-  }
+  };
+  
 
   const handleSignup = async () => {
     try {

@@ -31,6 +31,9 @@ const Home = () => {
     redirectToLogin()
   }, [user, navigate])
 
+  useEffect(() => {
+  }, [user, navigate])
+
   return (
     <Container >
       <Header />
