@@ -110,8 +110,8 @@ const Games = () => {
       <Top>
         <Title>We develop the best games!!</Title>
         <Text>
-           We develop games that challenge <span>technical skills</span>, <span>strategic thinking</span>, and, of course, 
-           <span> luck</span>, while our AI works continuously to promote fair gains and balance the financial 
+           We develop games that challenge <span>Technical Skills</span>, <span>Strategic Thinking</span>, and, of course, 
+           <span> Luck</span>, while our AI works continuously to promote fair gains and balance the financial 
            ecosystem. With an innovative and decentralized approach, we aim to provide a unique 
            experience where every player can explore their full potential, always with transparency and security.
            </Text>
