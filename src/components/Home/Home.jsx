@@ -160,7 +160,7 @@ const Home = () => {
             </Section>
           )}
         </Top>
-      </Content>n
+      </Content>
     </Container>
   )
 }
