@@ -4,6 +4,7 @@ import Header from '../Header/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Deposit from './Deposit'
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -45,6 +46,10 @@ const SubTitle = styled.h1`
   font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
+
+  border-bottom: ${(props) => (props.active ? '2px solid gray' : 'none')};
+  padding-bottom: ${(props) => (props.active ? '5px' : '0')};
+
 `
 
 const Text = styled.div`
@@ -83,47 +88,67 @@ const Section = styled.div`
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
 `
 
-const Info = styled.div`
+export const Info = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   padding: 5px;
 `
 
-const InfoItem = styled.div`
+export const InfoItem = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(33.333% - 10px); /* 3 itens por linha com espaçamento */
+  width: calc(33.333% - 10px);
   box-sizing: border-box;
   margin-bottom: 10px;
 
   @media (max-width: 768px) {
-    width: 100%; /* Em telas menores, todos os itens ocupam a largura total */
+    width: 100%; 
   }
 `
 
-
-const Label = styled.label`
+export const Label = styled.label`
+  text-align: start;
   margin-bottom: 5px;
   font-weight: bold;
 `
 
-const Input = styled.input`
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+export const Input = styled.input`
+  background-color: ${(props) => (props.theme.mode === 'dark' ? '#1c1c1e' : 'white')};
+  color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
+  border: none;
+  border-radius: 20px;
+  padding: 12px;
+  font-size: 1rem;
+  width: 90%;
+
+   &:disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => (props.theme.mode === 'dark' ? '#2c2c2e' : '#f0f0f0')};
+    box-shadow: none;
+    opacity: 0.8;
+  }
+
+  &:not(:disabled):hover {
+    border-color: ${(props) => (props.theme.mode === 'dark' ? '#FF6347' : '#FF4500')}; /* Efeito de borda ao passar o mouse */
+    box-shadow: ${(props) => (props.theme.mode === 'dark' ? '0 0 5px #FF6347' : '0 0 5px #FF4500')}; /* Efeito de sombra ao passar o mouse */
+  }
 `
 
-const Button = styled.button`
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+export const Button = styled.button`
+  width: 200px;
+  padding: 12px;
+  border-radius: 20px;
   border: none;
-  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  background: black;
+  transition: 1s;
   cursor: pointer;
 
-  &:hover {
-    background-color: #0056b3;
+  &: hover{
+    transform: scale(1.1)
   }
 `
 
@@ -235,23 +260,22 @@ const Home = () => {
           </Title>
           <Boxes>
             <Box key="account">
-              <SubTitle onClick={() => handleExpand('Account')}>Account</SubTitle>
+              <SubTitle onClick={() => handleExpand('Account')} active={content === 'Account'}>Account</SubTitle>
             </Box>
             <Box key="transactions">
-              <SubTitle onClick={() => handleExpand('Transactions')}>Transactions</SubTitle>
+              <SubTitle onClick={() => handleExpand('Transactions')} active={content === 'Transactions'}>Transactions</SubTitle>
             </Box>
             <Box key="history">
-              <SubTitle onClick={() => handleExpand('History')}>History</SubTitle>
+              <SubTitle onClick={() => handleExpand('History')} active={content === 'History'}>History</SubTitle>
             </Box>
             <Box key="deposit">
-              <SubTitle onClick={() => handleExpand('Deposit')}>Deposit</SubTitle>
+              <SubTitle onClick={() => handleExpand('Deposit')} active={content === 'Deposit'}>Deposit</SubTitle>
             </Box>
           </Boxes>
           {expanded && (
             <Section>
               {content === 'Account' && (
                 <>
-                  <h2>Account Details</h2>
                   <Info>
                     <InfoItem>
                       <Label>Name</Label>
@@ -263,11 +287,20 @@ const Home = () => {
                       />
                     </InfoItem>
                     <InfoItem>
-                      <Label>Email:</Label>
+                      <Label>Email</Label>
                       <Input
                         type="email"
                         name="email"
                         value={formData.email}
+                        onChange={handleChange}
+                      />
+                    </InfoItem>                  
+                    <InfoItem>
+                      <Label>Address</Label>
+                      <Input
+                        type="text"
+                        name="address"
+                        value={formData.address}
                         onChange={handleChange}
                       />
                     </InfoItem>
@@ -278,15 +311,7 @@ const Home = () => {
                         name="balance"
                         value={formData.balance}
                         onChange={handleChange}
-                      />
-                    </InfoItem>
-                    <InfoItem>
-                      <Label>Address</Label>
-                      <Input
-                        type="text"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleChange}
+                        disabled
                       />
                     </InfoItem>
                     <InfoItem>
@@ -326,10 +351,7 @@ const Home = () => {
                 </div>
               )}
               {content === 'Deposit' && (
-                <div>
-                  <h2>Deposit</h2>
-                  <p>Manage your deposits here.</p>
-                </div>
+                <Deposit />
               )}
             </Section>
           )}

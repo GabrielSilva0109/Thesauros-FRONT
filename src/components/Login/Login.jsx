@@ -67,6 +67,9 @@ const Input = styled.input`
   padding: 12px;
   font-size: 1rem;
   width: 90%;
+
+  background-color: ${(props) => (props.theme.mode === 'dark' ? '#1c1c1e' : 'white')};
+   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
 `
 
 const Btns = styled.div`
