@@ -4,6 +4,8 @@ import Header from '../Header/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+// import { URL } from '../Login/Login'
+
 
 const Container = styled.div`
   background-color: ${(props) =>
@@ -84,34 +86,64 @@ const Section = styled.div`
 `
 
 const Info = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 10px;
-    padding: 5px;
-
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  padding: 5px;
 `
 
-const InfoItem = styled.p`
-    margin: 0;
-    padding: 0;
+const InfoItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 `
 
 const Label = styled.label`
-    margin: 0;
-    padding: 0;
+  margin-bottom: 5px;
+  font-weight: bold;
+`
+
+const Input = styled.input`
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `
 
 const Home = () => {
+   // const URL = "https://thesauros.up.railway.app/api"
+  const URL = "http://localhost:3333/api"
+
   const { state } = useLocation()
   const user = state?.user
   const navigate = useNavigate()
   const [expanded, setExpanded] = useState(false)
   const [content, setContent] = useState('')
+  const [formData, setFormData] = useState({
+    name: user.name,
+    email: user.email,
+    balance: user.balance,
+    address: user.address,
+    created_at: user.created_at,
+    date_birth: user.date_birth,
+  })
 
   const redirectToLogin = async () => {
     if (!user || user === null) {
-      toast.warning("Faça o login para acessar a página Home.")
+      toast.warning('Faça o login para acessar a página Home.')
       await navigate('/')
     }
   }
@@ -126,6 +158,33 @@ const Home = () => {
     }
   }
 
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+  }
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch(`${URL}/user/${user.user_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      if (response.ok) {
+        toast.success('Informações atualizadas com sucesso!')
+      } else {
+        toast.error('Erro ao atualizar as informações.')
+      }
+    } catch (error) {
+      toast.error('Erro ao atualizar as informações.')
+    }
+  }
+
   useEffect(() => {
     redirectToLogin()
   }, [user, navigate])
@@ -135,7 +194,10 @@ const Home = () => {
       <Header user={user} />
       <Content>
         <Top expanded={expanded}>
-          <Title>Bem vindo a <span>Thesauros</span> <br />{user.name}</Title>
+          <Title>
+            Bem vindo a <span>Thesauros</span> <br />
+            {user.name}, {user.user_id}
+          </Title>
           <Boxes>
             <Box>
               <SubTitle onClick={() => handleExpand('Account')}>Account</SubTitle>
@@ -154,18 +216,65 @@ const Home = () => {
             <Section>
               {content === 'Account' && (
                 <>
-                <h2>Account Details</h2>
-                <Info>
-                  <Label>
-                    Name:
-                  </Label>
-                  <InfoItem>{user.name}</InfoItem>
-                  <InfoItem>{user.email}</InfoItem>
-                  <InfoItem>{user.balance}</InfoItem>
-                  <InfoItem>{user.address}</InfoItem>
-                  <InfoItem>{user.created_at}</InfoItem>
-                  <InfoItem>{user.date_birth}</InfoItem>
-                </Info>
+                  <h2>Account Details</h2>
+                  <Info>
+                    <InfoItem>
+                      <Label>Name:</Label>
+                      <Input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                      />
+                    </InfoItem>
+                    <InfoItem>
+                      <Label>Email:</Label>
+                      <Input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                      />
+                    </InfoItem>
+                    <InfoItem>
+                      <Label>Balance:</Label>
+                      <Input
+                        type="text"
+                        name="balance"
+                        value={formData.balance}
+                        onChange={handleChange}
+                      />
+                    </InfoItem>
+                    <InfoItem>
+                      <Label>Address:</Label>
+                      <Input
+                        type="text"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                      />
+                    </InfoItem>
+                    <InfoItem>
+                      <Label>Created At:</Label>
+                      <Input
+                        type="text"
+                        name="created_at"
+                        value={formData.created_at}
+                        onChange={handleChange}
+                        disabled
+                      />
+                    </InfoItem>
+                    <InfoItem>
+                      <Label>Date of Birth:</Label>
+                      <Input
+                        type="text"
+                        name="date_birth"
+                        value={formData.date_birth}
+                        onChange={handleChange}
+                      />
+                    </InfoItem>
+                  </Info>
+                  <Button onClick={handleSave}>Save</Button>
                 </>
               )}
               {content === 'Transactions' && (
@@ -177,7 +286,7 @@ const Home = () => {
               {content === 'History' && (
                 <div>
                   <h2>History</h2>
-                  <p>Check your activity asdfasdhistory here.</p>
+                  <p>Check your activity history here.</p>
                 </div>
               )}
               {content === 'Deposit' && (
@@ -190,9 +299,6 @@ const Home = () => {
           )}
         </Top>
       </Content>
-
-      
-
     </Container>
   )
 }
