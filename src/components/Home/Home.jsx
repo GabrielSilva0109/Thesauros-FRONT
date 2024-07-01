@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.mode === 'dark' ? 'black' : 'white'};
@@ -86,8 +85,7 @@ const Section = styled.div`
 
 const Info = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  flex-wrap: wrap;
   gap: 10px;
   padding: 5px;
 `
@@ -95,8 +93,15 @@ const Info = styled.div`
 const InfoItem = styled.div`
   display: flex;
   flex-direction: column;
+  width: calc(33.333% - 10px); /* 3 itens por linha com espaçamento */
+  box-sizing: border-box;
   margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    width: 100%; /* Em telas menores, todos os itens ocupam a largura total */
+  }
 `
+
 
 const Label = styled.label`
   margin-bottom: 5px;
@@ -123,7 +128,7 @@ const Button = styled.button`
 `
 
 const Home = () => {
-   // const URL = "https://thesauros.up.railway.app/api"
+  // const URL = "https://thesauros.up.railway.app/api"
   const URL = "http://localhost:3333/api"
 
   const { state } = useLocation()
@@ -131,19 +136,43 @@ const Home = () => {
   const navigate = useNavigate()
   const [expanded, setExpanded] = useState(false)
   const [content, setContent] = useState('')
-  const [ user, setUser] = useState(initialUser)
+  const [user, setUser] = useState(initialUser || null)
   const [formData, setFormData] = useState({
-    name: initialUser.name,
-    email: initialUser.email,
-    balance: initialUser.balance,
-    address: initialUser.address,
-    created_at: initialUser.created_at,
-    date_birth: initialUser.date_birth,
+    name: '',
+    email: '',
+    balance: '',
+    address: '',
+    created_at: '',
+    date_birth: '',
   })
 
+  const fetchUser = async () => {
+    if (initialUser && initialUser.user_id) {
+      try {
+        const response = await fetch(`${URL}/user/${initialUser.user_id}`)
+        if (response.ok) {
+          const userData = await response.json()
+          setUser(userData)
+          setFormData({
+            name: userData.name,
+            email: userData.email,
+            balance: userData.balance,
+            address: userData.address,
+            created_at: userData.created_at,
+            date_birth: userData.date_birth,
+          })
+        } else {
+          console.log('Failed to fetch user')
+        }
+      } catch (error) {
+        console.log('Fetch user failed', error)
+      }
+    }
+  }
+
   const redirectToLogin = async () => {
-    if (!initialUser || initialUser === null) {
-      toast.warning('Do to login for access Home.')
+    if (!user) {
+      toast.warning('Faça o login para acessar a página Home.')
       await navigate('/')
     }
   }
@@ -168,28 +197,32 @@ const Home = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`${URL}/user/${initialUser.user_id}`, {
+      const response = await fetch(`${URL}/user/${user.user_id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       })
+      const result = await response.json()
       if (response.ok) {
-        const updatedUser = await response.json()
-        setUser(updatedUser)
-        toast.success('User update!')
+        toast.success('User updated!')
+        await fetchUser()
       } else {
-        toast.error('Erro of update User!')
+        toast.error(`Erro ao atualizar usuário! ${result.message || 'Detalhes não disponíveis'}`)
       }
     } catch (error) {
-      toast.error('REQ ERRO')
+      toast.error(`REQ ERRO: ${error.message}`)
     }
   }
 
   useEffect(() => {
     redirectToLogin()
-  }, [initialUser, navigate])
+  }, [user, navigate])
+
+  useEffect(() => {
+    fetchUser()
+  }, [initialUser])
 
   return (
     <Container>
@@ -198,7 +231,7 @@ const Home = () => {
         <Top expanded={expanded}>
           <Title>
             Bem vindo a <span>Thesauros</span> <br />
-            {user.name}, {user.user_id }
+            {user?.name || 'Carregando...'}, {user?.user_id || 'Carregando...'}
           </Title>
           <Boxes>
             <Box key="account">
@@ -221,7 +254,7 @@ const Home = () => {
                   <h2>Account Details</h2>
                   <Info>
                     <InfoItem>
-                      <Label>Name:</Label>
+                      <Label>Name</Label>
                       <Input
                         type="text"
                         name="name"
@@ -239,7 +272,7 @@ const Home = () => {
                       />
                     </InfoItem>
                     <InfoItem>
-                      <Label>Balance:</Label>
+                      <Label>Balance</Label>
                       <Input
                         type="text"
                         name="balance"
@@ -248,7 +281,7 @@ const Home = () => {
                       />
                     </InfoItem>
                     <InfoItem>
-                      <Label>Address:</Label>
+                      <Label>Address</Label>
                       <Input
                         type="text"
                         name="address"
@@ -267,12 +300,13 @@ const Home = () => {
                       />
                     </InfoItem>
                     <InfoItem>
-                      <Label>Date of Birth:</Label>
+                      <Label>Date of Birth</Label>
                       <Input
                         type="text"
                         name="date_birth"
                         value={formData.date_birth}
                         onChange={handleChange}
+                        disabled
                       />
                     </InfoItem>
                   </Info>
