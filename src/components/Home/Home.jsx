@@ -28,6 +28,11 @@ const Top = styled.div`
   border-radius: 20px;
   height: ${(props) => (props.expanded ? '500px' : '200px')};
   transition: height 0.3s ease;
+
+   @media (max-width: 768px) {
+    width: 90%;
+    height: ${(props) => (props.expanded ? 'auto' : '200px')};
+  }
 `
 
 const Title = styled.h1`
@@ -51,6 +56,10 @@ const SubTitle = styled.h1`
   border-bottom: ${(props) => (props.active ? '2px solid gray' : 'none')};
   padding-bottom: ${(props) => (props.active ? '5px' : '0')};
 
+   @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
 `
 
 const Text = styled.div`
@@ -65,7 +74,7 @@ const Boxes = styled.div`
   gap: 20px;
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    gap: 10px;
     align-items: center;
   }
 `
@@ -80,7 +89,7 @@ const Box = styled.div`
   @media (max-width: 768px) {
     width: 80%;
     margin-bottom: 20px;
-    backdrop-filter: blur(60px);
+   
   }
 `
 
@@ -139,6 +148,7 @@ export const Input = styled.input`
 export const Button = styled.button`
   width: 200px;
   padding: 12px;
+  margin: 10px;
   border-radius: 20px;
   border: none;
   color: white;
