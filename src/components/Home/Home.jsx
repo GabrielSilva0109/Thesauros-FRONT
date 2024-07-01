@@ -4,7 +4,6 @@ import Header from '../Header/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-// import { URL } from '../Login/Login'
 
 
 const Container = styled.div`
@@ -128,22 +127,23 @@ const Home = () => {
   const URL = "http://localhost:3333/api"
 
   const { state } = useLocation()
-  const user = state?.user
+  const initialUser = state?.user
   const navigate = useNavigate()
   const [expanded, setExpanded] = useState(false)
   const [content, setContent] = useState('')
+  const [ user, setUser] = useState(initialUser)
   const [formData, setFormData] = useState({
-    name: user.name,
-    email: user.email,
-    balance: user.balance,
-    address: user.address,
-    created_at: user.created_at,
-    date_birth: user.date_birth,
+    name: initialUser.name,
+    email: initialUser.email,
+    balance: initialUser.balance,
+    address: initialUser.address,
+    created_at: initialUser.created_at,
+    date_birth: initialUser.date_birth,
   })
 
   const redirectToLogin = async () => {
-    if (!user || user === null) {
-      toast.warning('Faça o login para acessar a página Home.')
+    if (!initialUser || initialUser === null) {
+      toast.warning('Do to login for access Home.')
       await navigate('/')
     }
   }
@@ -168,7 +168,7 @@ const Home = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`${URL}/user/${user.user_id}`, {
+      const response = await fetch(`${URL}/user/${initialUser.user_id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -176,18 +176,20 @@ const Home = () => {
         body: JSON.stringify(formData),
       })
       if (response.ok) {
-        toast.success('Informações atualizadas com sucesso!')
+        const updatedUser = await response.json()
+        setUser(updatedUser)
+        toast.success('User update!')
       } else {
-        toast.error('Erro ao atualizar as informações.')
+        toast.error('Erro of update User!')
       }
     } catch (error) {
-      toast.error('Erro ao atualizar as informações.')
+      toast.error('REQ ERRO')
     }
   }
 
   useEffect(() => {
     redirectToLogin()
-  }, [user, navigate])
+  }, [initialUser, navigate])
 
   return (
     <Container>
@@ -196,19 +198,19 @@ const Home = () => {
         <Top expanded={expanded}>
           <Title>
             Bem vindo a <span>Thesauros</span> <br />
-            {user.name}, {user.user_id}
+            {user.name}, {user.user_id }
           </Title>
           <Boxes>
-            <Box>
+            <Box key="account">
               <SubTitle onClick={() => handleExpand('Account')}>Account</SubTitle>
             </Box>
-            <Box>
+            <Box key="transactions">
               <SubTitle onClick={() => handleExpand('Transactions')}>Transactions</SubTitle>
             </Box>
-            <Box>
+            <Box key="history">
               <SubTitle onClick={() => handleExpand('History')}>History</SubTitle>
             </Box>
-            <Box>
+            <Box key="deposit">
               <SubTitle onClick={() => handleExpand('Deposit')}>Deposit</SubTitle>
             </Box>
           </Boxes>
