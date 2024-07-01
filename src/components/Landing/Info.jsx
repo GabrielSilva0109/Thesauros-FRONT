@@ -105,13 +105,13 @@ const Info = () => {
                     </Text>
                 </Box>
                 <Box>
-                    <SubTitle>10K Users</SubTitle>
+                    <SubTitle>10K</SubTitle>
                     <Text>
                         News Users every days
                     </Text>
                 </Box>
                 <Box>
-                    <SubTitle>+20 Games</SubTitle>
+                    <SubTitle>+20</SubTitle>
                     <Text>
                        The Best games
                     </Text>

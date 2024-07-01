@@ -126,6 +126,7 @@ const List = styled.ul`
     flex-direction: column;
     align-items: start;
     text-align: start;
+    list-style: none;
 `
 
 const ListItem = styled.li`
