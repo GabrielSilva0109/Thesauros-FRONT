@@ -24,17 +24,15 @@ const Content = styled.div`
     }
 `
 
-
 const Left = styled.div`
     backdrop-filter: blur(30px);
     background: rgb(179 179 179 / 28%);
     border-radius: 20px;
     height: 200px;
     width: 50%;
-    background: gray;
+
     @media(max-width: 768px) {
        width: 100%;
-
     }
 `
 
@@ -43,7 +41,6 @@ const Right = styled.div`
     background: rgb(179 179 179 / 28%);
     border-radius: 20px;
     width: 50%;
-    background: red;
     height: 200px;
 
       @media(max-width: 768px) {
@@ -58,7 +55,7 @@ const Main = () => {
 
             <Content>
             <Left>
-                    a
+                
             </Left>
 
             <Right>

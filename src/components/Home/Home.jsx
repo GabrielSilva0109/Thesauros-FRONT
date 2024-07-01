@@ -267,7 +267,7 @@ const Home = () => {
         <Top expanded={expanded}>
           <Title>
             Bem vindo a <span>Thesauros</span> <br />
-            {user?.name || 'Carregando...'}, {user?.user_id || 'Carregando...'}
+            {user?.name || 'Carregando...'}
           </Title>
           <Boxes>
             <Box key="account">
