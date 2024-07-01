@@ -11,9 +11,9 @@ const Container = styled.div`
 `
 
 const Content = styled.div`
-    width: 80%;
-    display: flex;
-    gap: 20px;
+  width: 80%;
+  display: flex;
+  gap: 20px;
 
   @media(max-width: 768px) {
     flex-direction: column;
