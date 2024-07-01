@@ -83,6 +83,25 @@ const Section = styled.div`
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
 `
 
+const Info = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    padding: 5px;
+
+`
+
+const InfoItem = styled.p`
+    margin: 0;
+    padding: 0;
+`
+
+const Label = styled.label`
+    margin: 0;
+    padding: 0;
+`
+
 const Home = () => {
   const { state } = useLocation()
   const user = state?.user
@@ -134,10 +153,20 @@ const Home = () => {
           {expanded && (
             <Section>
               {content === 'Account' && (
-                <div>
-                  <h2>Account Details</h2>
-                  <p>Here you can manage your account settings and information.</p>
-                </div>
+                <>
+                <h2>Account Details</h2>
+                <Info>
+                  <Label>
+                    Name:
+                  </Label>
+                  <InfoItem>{user.name}</InfoItem>
+                  <InfoItem>{user.email}</InfoItem>
+                  <InfoItem>{user.balance}</InfoItem>
+                  <InfoItem>{user.address}</InfoItem>
+                  <InfoItem>{user.created_at}</InfoItem>
+                  <InfoItem>{user.date_birth}</InfoItem>
+                </Info>
+                </>
               )}
               {content === 'Transactions' && (
                 <div>
@@ -161,6 +190,9 @@ const Home = () => {
           )}
         </Top>
       </Content>
+
+      
+
     </Container>
   )
 }
