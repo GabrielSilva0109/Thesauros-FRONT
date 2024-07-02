@@ -101,8 +101,7 @@ const BlockContainer = styled.div`
   height: 100%;
   transform-style: preserve-3d;
   cursor: pointer;
-  perspective: 1000px; /* Define a perspectiva para a animação 3D */
-  
+  perspective: 1000px;
 
 `
 
@@ -138,18 +137,65 @@ const Top = styled.div`
   margin-bottom: 10px;
 `;
 
+const Text = styled.div`
+
+`;
+
 const Roulette = () => {
-  const { state } = useLocation()
-  const initialUser = state?.user
-  const navigate = useNavigate()
-  const [user, setUser] = useState(initialUser || null)
-  const [flippedBlocks, setFlippedBlocks] = useState(Array.from({ length: 20 }, () => false))
+  const { state } = useLocation();
+  const initialUser = state?.user;
+  const navigate = useNavigate();
+  const [user, setUser] = useState(initialUser || null);
+  const [flippedBlocks, setFlippedBlocks] = useState(Array.from({ length: 20 }, () => false));
+  const [numMines, setNumMines] = useState(0); // Estado para armazenar o número de minas
+  const [bombs, setBombs] = useState([]); // Estado para armazenar os índices das bombas
+  const [gameOver, setGameOver] = useState(false); // Estado para controlar o término do jogo
+  const [multiplier, setMultiplier] = useState(0); // Estado para armazenar a porcentagem de multiplicação
 
   const handleBlockClick = (index) => {
-    const newFlippedBlocks = [...flippedBlocks]
-    newFlippedBlocks[index] = !newFlippedBlocks[index]
-    setFlippedBlocks(newFlippedBlocks)
-  }
+    if (gameOver) return; // Se o jogo já terminou, não faça nada
+    
+    const newFlippedBlocks = [...flippedBlocks];
+    newFlippedBlocks[index] = true;
+    setFlippedBlocks(newFlippedBlocks);
+
+    if (bombs.includes(index)) {
+      // Se o bloco clicado contém uma bomba, termina o jogo
+      setGameOver(true);
+      alert('Game Over! Você encontrou uma bomba.');
+    } else {
+      // Se o bloco clicado é um diamante, atualiza o valor multiplicado
+      const newValue = numMines * (1 + multiplier / 100);
+      alert(`Você encontrou um diamante! Seu novo valor é: $${newValue.toFixed(2)}`);
+    }
+  };
+
+  const handleStart = () => {
+    // Gere um array com índices aleatórios para os blocos com bombas
+    const bombIndexes = [];
+    while (bombIndexes.length < numMines) {
+      const randomIndex = Math.floor(Math.random() * 20); // Gera um número aleatório entre 0 e 19
+      if (!bombIndexes.includes(randomIndex)) {
+        bombIndexes.push(randomIndex);
+      }
+    }
+
+    // Atualize o estado bombs com os índices das bombas
+    setBombs(bombIndexes);
+    setGameOver(false); // Reinicia o jogo
+    setFlippedBlocks(Array.from({ length: 20 }, () => false)); // Reinicia os blocos virados
+
+    // Determina a porcentagem de multiplicação baseada na quantidade de bombas
+    const percentage = bombIndexes.length * 5; // Exemplo: 5% por bomba encontrada
+    setMultiplier(percentage);
+  };
+
+  const handleInputChange = (event) => {
+    const value = parseInt(event.target.value, 10);
+    if (!isNaN(value) && value >= 1 && value <= 20) {
+      setNumMines(value);
+    }
+  };
 
   return (
     <Container>
@@ -158,16 +204,16 @@ const Roulette = () => {
         <Left>
           <Top>
             <Input placeholder='$00.00'/>
-            <Input placeholder='Amount Mines' type='number'/>
-            <Btn>Start</Btn>
+            <Input placeholder='Amount Mines' type='number' onChange={handleInputChange} />
+            <Btn onClick={handleStart}>Start</Btn>
           </Top>
-          
+          <Text></Text>
           <Camp>
             {/* Rendering 20 blocks */}
             {Array.from({ length: 20 }).map((_, index) => (
               <BlockContainer key={index} onClick={() => handleBlockClick(index)}>
-                <Front flipped={flippedBlocks[index]} />
-                <Back flipped={flippedBlocks[index]}>Back Content</Back>
+                <Front flipped={flippedBlocks[index] || gameOver} />
+                <Back flipped={flippedBlocks[index] || gameOver}>{bombs.includes(index) ? 'bomb' : 'diamond'}</Back>
               </BlockContainer>
             ))}
           </Camp>
