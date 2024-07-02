@@ -139,17 +139,18 @@ const Top = styled.div`
 `;
 
 const Roulette = () => {
-  const { state } = useLocation();
-  const initialUser = state?.user;
-  const navigate = useNavigate();
-  const [user, setUser] = useState(initialUser || null);
-  const [flippedBlocks, setFlippedBlocks] = useState(Array.from({ length: 20 }, () => false));
+  const { state } = useLocation()
+  const initialUser = state?.user
+  const navigate = useNavigate()
+  const [user, setUser] = useState(initialUser || null)
+  const [flippedBlocks, setFlippedBlocks] = useState(Array.from({ length: 20 }, () => false))
 
   const handleBlockClick = (index) => {
-    const newFlippedBlocks = [...flippedBlocks];
-    newFlippedBlocks[index] = !newFlippedBlocks[index];
-    setFlippedBlocks(newFlippedBlocks);
-  };
+    const newFlippedBlocks = [...flippedBlocks]
+    newFlippedBlocks[index] = !newFlippedBlocks[index]
+    setFlippedBlocks(newFlippedBlocks)
+  }
+
   return (
     <Container>
       <Header user={user} />
