@@ -23,7 +23,7 @@ const Content = styled.div`
 
 const Left = styled.div`
   backdrop-filter: blur(20px);
-  background: rgb(179 179 179 / 20%);
+  background: rgb(179 179 179 / 38%);
   border-radius: 20px;
   height: 200px;
   width: 50%;
@@ -41,7 +41,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   backdrop-filter: blur(20px);
-  background: rgb(179 179 179 / 28%);
+  background: rgb(179 179 179 / 38%);
   border-radius: 20px;
   width: 50%;
   height: 200px;

@@ -66,7 +66,7 @@ const RedBall = styled.div`
 const Top = styled.div`
   width: 80%;
   backdrop-filter: blur(15px);
-  background: rgb(179 179 179 / 28%);
+  background: rgb(179 179 179 / 38%);
   border-radius: 20px;
   height: ${(props) => (props.expanded ? '500px' : '200px')};
   transition: height 0.3s ease;

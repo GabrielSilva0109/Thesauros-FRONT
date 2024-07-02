@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Header from '../Header/Header'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
-  background-color: ${(props) => (props.theme.mode === 'dark' ? 'black' : 'white')};
+   background-color: ${(props) =>
+    props.theme.mode === 'dark' ? 'black' : 'white'};
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
+  margin: 0;
 `
 
 const Content = styled.div`
@@ -94,6 +93,9 @@ const Btn = styled.button`
 const Users = () => {
   const { state } = useLocation()
   const initialUser = state?.user
+  const navigate = useNavigate()
+  const [user, setUser] = useState(initialUser || null)
+
   return (
     <Container>
       <Header user={user} />
