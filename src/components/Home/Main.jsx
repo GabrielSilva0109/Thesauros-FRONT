@@ -22,8 +22,8 @@ const Content = styled.div`
 `
 
 const Left = styled.div`
-  backdrop-filter: blur(30px);
-  background: rgb(179 179 179 / 28%);
+  backdrop-filter: blur(20px);
+  background: rgb(179 179 179 / 20%);
   border-radius: 20px;
   height: 200px;
   width: 50%;
@@ -32,6 +32,7 @@ const Left = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 
   @media(max-width: 768px) {
     width: 100%;
@@ -39,7 +40,7 @@ const Left = styled.div`
 `
 
 const Right = styled.div`
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(20px);
   background: rgb(179 179 179 / 28%);
   border-radius: 20px;
   width: 50%;
@@ -49,6 +50,7 @@ const Right = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 
   @media(max-width: 768px) {
     width: 100%;

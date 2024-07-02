@@ -19,6 +19,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   margin: 20px;
+  
 `
 
 const RedBallAnimation = keyframes`
@@ -35,7 +36,7 @@ const RedBallAnimation = keyframes`
     border-radius: 40%;
   }
   75% {
-    transform: translate(170px, -70px) scale(0.7) rotate(270deg);
+    transform: translate(10px, 70px) scale(0.7) rotate(270deg);
     border-radius: 20%;
   }
   100% {
@@ -45,16 +46,31 @@ const RedBallAnimation = keyframes`
 `
 
 const RedBall = styled.div`
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  background: rgb(253, 29, 29);
+  background: linear-gradient(90deg, rgba(253, 29, 29, 1) 0%, rgba(255, 0, 0, 1) 46%, rgba(252, 176, 69, 1) 100%);
+  border-radius: 50%;
+  z-index: 1;
+  animation: ${RedBallAnimation} 15s ease-in-out infinite;
 
+  @media (max-width: 768px) {
+    top: 20px;
+  }
 `
 
 const Top = styled.div`
   width: 80%;
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(15px);
   background: rgb(179 179 179 / 28%);
   border-radius: 20px;
   height: ${(props) => (props.expanded ? '500px' : '200px')};
   transition: height 0.3s ease;
+  z-index: 2;
 
    @media (max-width: 768px) {
     width: 90%;
@@ -397,6 +413,7 @@ const Home = () => {
         
       </Content>
       <Main />
+      <RedBall />
     </Container>
   )
 }
