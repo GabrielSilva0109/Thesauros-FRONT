@@ -14,6 +14,8 @@ import Games from './components/Games/Games.jsx'
 import Contact from './components/Contact/Contact.jsx'
 import Login from './components/Login/Login.jsx'
 import Minefield from './components/Minefield/Minefield.jsx'
+import Roulette from './components/Roulette/Roulette.jsx'
+import Users from './components/Users/Users.jsx'
 
 const AppRouter = () => {  
   return (
@@ -21,6 +23,7 @@ const AppRouter = () => {
       <Router>
         <div className="app">
           <Routes>
+            {/* Landing Page  */}
             <Route path="/" element={<Landing />} />
             <Route path="/home" element={<Home />} />
             <Route path="/mission" element={<Mission />} />
@@ -28,7 +31,10 @@ const AppRouter = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
 
+            {/* User Login */}
             <Route path='/minefield' element={<Minefield/>} />
+            <Route path='/roulette' element={<Roulette />} />
+            <Route path='/users' element={<Users />} />
           </Routes>
           <ToastContainer />
         </div>

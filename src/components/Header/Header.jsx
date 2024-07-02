@@ -189,7 +189,7 @@ const Header = ({ user }) => {
           <NavLink to="/roulette" state={{ user }} className={isActiveLink(location.pathname, '/roulette')}>Roulette</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/account" state={{ user }} className={isActiveLink(location.pathname, '/account')}>Account</NavLink>
+          <NavLink to="/users" state={{ user }} className={isActiveLink(location.pathname, '/users')}>Users</NavLink>
         </NavItem>
       </Nav>
 
