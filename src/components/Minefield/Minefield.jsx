@@ -100,10 +100,10 @@ const BlockContainer = styled.div`
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  cursor: pointer;
+  cursor: ${(props) => (props.gameOver || props.numMines === 0) ? 'default' : 'pointer'};
   perspective: 1000px;
-
-`
+  pointer-events: ${(props) => (props.gameOver || props.numMines === 0) ? 'none' : 'auto'};
+`;
 
 const Title = styled.h1`
   font-size: 2rem;
@@ -174,7 +174,7 @@ const Roulette = () => {
 
   const handleStart = () => {
     
-    const bombIndexes = [];
+    const bombIndexes = []
     while (bombIndexes.length < numMines) {
       const randomIndex = Math.floor(Math.random() * 20); // Gera um número aleatório entre 0 e 19
       if (!bombIndexes.includes(randomIndex)) {
@@ -216,7 +216,7 @@ const Roulette = () => {
           <Camp>
             {/* Rendering 20 blocks */}
             {Array.from({ length: 20 }).map((_, index) => (
-              <BlockContainer key={index} onClick={() => handleBlockClick(index)}>
+              <BlockContainer key={index} onClick={() => handleBlockClick(index)} gameOver={gameOver} numMines={numMines}>
                 <Front flipped={flippedBlocks[index] || gameOver} />
                 <Back flipped={flippedBlocks[index] || gameOver}>{bombs.includes(index) ? 'bomb' : 'diamond'}</Back>
               </BlockContainer>
