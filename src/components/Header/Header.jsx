@@ -154,11 +154,14 @@ const Btns = styled.div`
 
 const Balance = styled.div`
     width: 100px;
-    padding: 10px;
+    padding: 4px;
     border-radius: 20px;
     background: #1c1c1e;
     font-weight: bold;
     color: #00f900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const Header = ({ user }) => {
