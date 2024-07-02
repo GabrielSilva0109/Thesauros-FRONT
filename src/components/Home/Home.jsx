@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import Header from '../Header/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -19,6 +19,33 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   margin: 20px;
+`
+
+const RedBallAnimation = keyframes`
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0);
+    border-radius: 50%;
+  }
+  25% {
+    transform: translate(300px, 220px) scale(1.2) rotate(90deg);
+    border-radius: 0%;
+  }
+  50% {
+    transform: translate(-200px, 220px) scale(1.4) rotate(-180deg);
+    border-radius: 40%;
+  }
+  75% {
+    transform: translate(170px, -70px) scale(0.7) rotate(270deg);
+    border-radius: 20%;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(360deg);
+    border-radius: 50%;
+  }
+`
+
+const RedBall = styled.div`
+
 `
 
 const Top = styled.div`
