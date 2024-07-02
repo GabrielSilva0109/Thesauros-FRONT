@@ -138,7 +138,8 @@ const Top = styled.div`
 `;
 
 const Text = styled.div`
-
+  font-size: 1.2rem;
+  font-weight: bold;
 `;
 
 const Roulette = () => {
@@ -151,9 +152,10 @@ const Roulette = () => {
   const [bombs, setBombs] = useState([]); // Estado para armazenar os índices das bombas
   const [gameOver, setGameOver] = useState(false); // Estado para controlar o término do jogo
   const [multiplier, setMultiplier] = useState(0); // Estado para armazenar a porcentagem de multiplicação
+  const [investment, setInvestment] = useState(0); // Estado para armazenar o valor investido pelo usuário
 
   const handleBlockClick = (index) => {
-    if (gameOver) return; // Se o jogo já terminou, não faça nada
+    if (gameOver) return
     
     const newFlippedBlocks = [...flippedBlocks];
     newFlippedBlocks[index] = true;
@@ -165,13 +167,13 @@ const Roulette = () => {
       alert('Game Over! Você encontrou uma bomba.');
     } else {
       // Se o bloco clicado é um diamante, atualiza o valor multiplicado
-      const newValue = numMines * (1 + multiplier / 100);
-      alert(`Você encontrou um diamante! Seu novo valor é: $${newValue.toFixed(2)}`);
+      const newValue = investment * (1 + multiplier / 100);
+      setInvestment(newValue);
     }
   };
 
   const handleStart = () => {
-    // Gere um array com índices aleatórios para os blocos com bombas
+    
     const bombIndexes = [];
     while (bombIndexes.length < numMines) {
       const randomIndex = Math.floor(Math.random() * 20); // Gera um número aleatório entre 0 e 19
@@ -188,6 +190,9 @@ const Roulette = () => {
     // Determina a porcentagem de multiplicação baseada na quantidade de bombas
     const percentage = bombIndexes.length * 5; // Exemplo: 5% por bomba encontrada
     setMultiplier(percentage);
+
+    // Reinicia o valor do investimento para o valor inicial
+    setInvestment(20); // Defina aqui o valor inicial de investimento
   };
 
   const handleInputChange = (event) => {
@@ -207,7 +212,7 @@ const Roulette = () => {
             <Input placeholder='Amount Mines' type='number' onChange={handleInputChange} />
             <Btn onClick={handleStart}>Start</Btn>
           </Top>
-          <Text></Text>
+          <Text>Investment: ${investment.toFixed(2)}</Text>
           <Camp>
             {/* Rendering 20 blocks */}
             {Array.from({ length: 20 }).map((_, index) => (
