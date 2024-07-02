@@ -24,9 +24,8 @@ const Left = styled.div`
   backdrop-filter: blur(20px);
   background: rgb(179 179 179 / 40%);
   border-radius: 20px;
-  height: 450px;
+  height: 530px;
   width: 70%;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,40 +37,44 @@ const Left = styled.div`
   }
 `
 
-const Right = styled.div`
+const Camp = styled.div`
   backdrop-filter: blur(20px);
   background: rgb(179 179 179 / 28%);
   border-radius: 20px;
-  width: 50%;
-  height: 200px;
+  width: 80%;
+  height: 380px;
+  display: grid; /* Alteração para grid */
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr); 
+  gap: 10px;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
+  
   @media(max-width: 768px) {
     width: 100%;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(10, 1fr); 
+  }
+`
+
+const Block = styled.div`
+  height: 90px;
+  background: linear-gradient(90deg, rgba(253, 29, 29, 1) 0%, rgba(255, 0, 0, 1) 46%, rgba(252, 176, 69, 1) 100%);
+  border-radius: 10px;
+  transition: 1s;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
   }
 `
 
 const Title = styled.h1`
   font-size: 2rem;
-  margin-bottom: 10px;
+  margin: 0;
   background: linear-gradient(90deg, rgba(253, 29, 29, 1) 0%, rgba(255, 0, 0, 1) 46%, rgba(252, 176, 69, 1) 100%);
   -webkit-background-clip: text;
   color: transparent;
   text-align: start;
-`
-
-const Text = styled.p`
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: gray;
-  margin-bottom: 20px;
-  text-align: start;
-
 `
 
 const Btn = styled.button`
@@ -94,6 +97,7 @@ const Btn = styled.button`
 const Top = styled.div`
   display: flex;
   gap: 20px;
+  margin-bottom: 10px;
 `
 
 const Roulette = () => {
@@ -107,21 +111,20 @@ const Roulette = () => {
       <Header user={user} />
       <Content>
         <Left>
-          <Title>Choose your way to play</Title>
+          
           <Top>
             <Input placeholder='$00.00'/>
             <Input placeholder='Amount Mines' type='number'/>
             <Btn>Start</Btn>
           </Top>
           
-          <Text>
-            A strategic game where your skills and tactics lead you to victory. Develop your strategies, outsmart your opponents, and claim the top spot on the leaderboard.
-          </Text>
-          <Btn onClick={() => alert('Learn more about Strategic')}>
-            Learn More
-          </Btn>
+          <Camp>
+            {/* Rendering 20 blocks */}
+            {Array.from({ length: 20 }).map((_, index) => (
+              <Block key={index} />
+            ))}
+          </Camp>
         </Left>
-        
       </Content>
     </Container>
   )

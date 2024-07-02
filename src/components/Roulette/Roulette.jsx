@@ -110,7 +110,7 @@ const Roulette = () => {
             <Input placeholder='$00.00'/>
             <Input placeholder='Amount Mines' type='number'/>
           </Top>
-          <Title>USers</Title>
+          
           <Text>
             A strategic game where your skills and tactics lead you to victory. Develop your strategies, outsmart your opponents, and claim the top spot on the leaderboard.
           </Text>
