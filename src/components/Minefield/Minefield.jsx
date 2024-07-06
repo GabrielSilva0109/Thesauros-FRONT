@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import Header from '../Header/Header';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Input } from '../Home/Home';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import Header from '../Header/Header'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Input } from '../Home/Home'
 
 const Container = styled.div`
   background-color: ${(props) => (props.theme.mode === 'dark' ? 'black' : 'white')};
   color: ${(props) => (props.theme.mode === 'dark' ? 'white' : 'black')};
   margin: 0;
-`;
+`
 
 const Content = styled.div`
   width: 100%;
@@ -17,7 +17,7 @@ const Content = styled.div`
   justify-content: center;
   z-index: 2;
   margin-top: 20px;
-`;
+`
 
 const Left = styled.div`
   backdrop-filter: blur(20px);
@@ -34,7 +34,7 @@ const Left = styled.div`
   @media(max-width: 768px) {
     width: 90%;
   }
-`;
+`
 
 const Camp = styled.div`
   backdrop-filter: blur(20px);
@@ -148,11 +148,13 @@ const Roulette = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(initialUser || null);
   const [flippedBlocks, setFlippedBlocks] = useState(Array.from({ length: 20 }, () => false));
-  const [numMines, setNumMines] = useState(0); // Estado para armazenar o número de minas
-  const [bombs, setBombs] = useState([]); // Estado para armazenar os índices das bombas
-  const [gameOver, setGameOver] = useState(false); // Estado para controlar o término do jogo
-  const [multiplier, setMultiplier] = useState(0); // Estado para armazenar a porcentagem de multiplicação
-  const [investment, setInvestment] = useState(0); // Estado para armazenar o valor investido pelo usuário
+  const [numMines, setNumMines] = useState(0)
+  const [bombs, setBombs] = useState([]); 
+  const [gameOver, setGameOver] = useState(false); 
+  const [multiplier, setMultiplier] = useState(0); 
+  const [investment, setInvestment] = useState(0);
+  const [inputInvestment, setInputInvestment] = useState(0);
+
 
   const handleBlockClick = (index) => {
     if (gameOver) return
@@ -162,11 +164,9 @@ const Roulette = () => {
     setFlippedBlocks(newFlippedBlocks);
 
     if (bombs.includes(index)) {
-      // Se o bloco clicado contém uma bomba, termina o jogo
       setGameOver(true);
       alert('Game Over! Você encontrou uma bomba.');
     } else {
-      // Se o bloco clicado é um diamante, atualiza o valor multiplicado
       const newValue = investment * (1 + multiplier / 100);
       setInvestment(newValue);
     }
@@ -176,7 +176,7 @@ const Roulette = () => {
     
     const bombIndexes = []
     while (bombIndexes.length < numMines) {
-      const randomIndex = Math.floor(Math.random() * 20); // Gera um número aleatório entre 0 e 19
+      const randomIndex = Math.floor(Math.random() * 20);
       if (!bombIndexes.includes(randomIndex)) {
         bombIndexes.push(randomIndex);
       }
@@ -187,12 +187,10 @@ const Roulette = () => {
     setGameOver(false); // Reinicia o jogo
     setFlippedBlocks(Array.from({ length: 20 }, () => false)); // Reinicia os blocos virados
 
-    // Determina a porcentagem de multiplicação baseada na quantidade de bombas
-    const percentage = bombIndexes.length * 5; // Exemplo: 5% por bomba encontrada
-    setMultiplier(percentage);
-
-    // Reinicia o valor do investimento para o valor inicial
-    setInvestment(20); // Defina aqui o valor inicial de investimento
+    
+    const percentage = bombIndexes.length * 5
+    setMultiplier(percentage)
+    setInvestment(inputInvestment)
   };
 
   const handleInputChange = (event) => {
@@ -202,13 +200,21 @@ const Roulette = () => {
     }
   };
 
+  const handleInvestmentChange = (event) => {
+    const value = parseFloat(event.target.value);
+    if (!isNaN(value) && value >= 0) {
+      setInputInvestment(value);
+    }
+  };
+  
+
   return (
     <Container>
       <Header user={user} />
       <Content>
         <Left>
           <Top>
-            <Input placeholder='$00.00'/>
+            <Input placeholder='$00.00' type='number' onChange={handleInvestmentChange} />
             <Input placeholder='Amount Mines' type='number' onChange={handleInputChange} />
             <Btn onClick={handleStart}>Start</Btn>
           </Top>
