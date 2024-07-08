@@ -53,7 +53,7 @@ const Camp = styled.div`
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(10, 1fr);
   }
-`;
+`
 
 const Block = styled.div`
   position: relative;
@@ -94,7 +94,7 @@ const Back = styled.div`
   transform-style: preserve-3d;
   backface-visibility: hidden;
   transform: ${props => props.flipped ? 'rotateY(0deg)' : 'rotateY(180deg)'};
-`;
+`
 
 const BlockContainer = styled.div`
   width: 100%;
@@ -103,7 +103,7 @@ const BlockContainer = styled.div`
   cursor: ${(props) => (props.gameOver || props.numMines === 0) ? 'default' : 'pointer'};
   perspective: 1000px;
   pointer-events: ${(props) => (props.gameOver || props.numMines === 0) ? 'none' : 'auto'};
-`;
+`
 
 const Title = styled.h1`
   font-size: 2rem;
@@ -112,9 +112,9 @@ const Title = styled.h1`
   -webkit-background-clip: text;
   color: transparent;
   text-align: start;
-`;
+`
 
-const Btn = styled.button`
+const BtnStart = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 20px;
@@ -129,18 +129,36 @@ const Btn = styled.button`
   &:hover {
     transform: scale(1.05);
   }
-`;
+`
+
+
+const BtnStop = styled.button`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  background: rgb(253, 29, 29);
+  background: linear-gradient(90deg, rgba(253, 29, 29, 1) 0%, rgba(255, 0, 0, 1) 46%, rgba(252, 176, 69, 1) 100%);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`
 
 const Top = styled.div`
   display: flex;
   gap: 20px;
   margin-bottom: 10px;
-`;
+`
 
 const Text = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
-`;
+`
 
 const Roulette = () => {
   const { state } = useLocation();
@@ -170,42 +188,77 @@ const Roulette = () => {
       const newValue = investment * (1 + multiplier / 100);
       setInvestment(newValue);
     }
-  };
+  }
 
   const handleStart = () => {
-    
-    const bombIndexes = []
+    const userBalance = user.balance;
+  
+    if (inputInvestment > userBalance) {
+      alert('Saldo insuficiente para iniciar o jogo.');
+      return;
+    }
+  
+    const bombIndexes = [];
     while (bombIndexes.length < numMines) {
       const randomIndex = Math.floor(Math.random() * 20);
       if (!bombIndexes.includes(randomIndex)) {
         bombIndexes.push(randomIndex);
       }
     }
-
+  
     // Atualize o estado bombs com os índices das bombas
     setBombs(bombIndexes);
     setGameOver(false); // Reinicia o jogo
     setFlippedBlocks(Array.from({ length: 20 }, () => false)); // Reinicia os blocos virados
+  
+    const percentage = bombIndexes.length * 5;
+    setMultiplier(percentage);
+    setInvestment(inputInvestment);
+  }
 
-    
-    const percentage = bombIndexes.length * 5
-    setMultiplier(percentage)
-    setInvestment(inputInvestment)
-  };
-
+  const handleStart = () => {
+    const userBalance = user.balance;
+  
+    if (inputInvestment > userBalance) {
+      alert('Saldo insuficiente para iniciar o jogo.');
+      return;
+    }
+  
+    const bombIndexes = [];
+    while (bombIndexes.length < numMines) {
+      const randomIndex = Math.floor(Math.random() * 20);
+      if (!bombIndexes.includes(randomIndex)) {
+        bombIndexes.push(randomIndex);
+      }
+    }
+  
+    // Atualize o estado bombs com os índices das bombas
+    setBombs(bombIndexes);
+    setGameOver(false); // Reinicia o jogo
+    setFlippedBlocks(Array.from({ length: 20 }, () => false)); // Reinicia os blocos virados
+  
+    const percentage = bombIndexes.length * 5;
+    setMultiplier(percentage);
+    setInvestment(inputInvestment);
+  }
+  
+  //Amount of bombs
   const handleInputChange = (event) => {
-    const value = parseInt(event.target.value, 10);
+    const value = parseInt(event.target.value, 10)
+
     if (!isNaN(value) && value >= 1 && value <= 20) {
       setNumMines(value);
     }
-  };
+  }
 
+  //Investiment of Value
   const handleInvestmentChange = (event) => {
-    const value = parseFloat(event.target.value);
-    if (!isNaN(value) && value >= 0) {
-      setInputInvestment(value);
-    }
-  };
+    const value = parseFloat(event.target.value)
+  
+      if (!isNaN(value) && value >= 0) {
+        setInputInvestment(value);
+      }
+  }
   
 
   return (
@@ -216,7 +269,8 @@ const Roulette = () => {
           <Top>
             <Input placeholder='$00.00' type='number' onChange={handleInvestmentChange} />
             <Input placeholder='Amount Mines' type='number' onChange={handleInputChange} />
-            <Btn onClick={handleStart}>Start</Btn>
+            <BtnStart onClick={handleStart}>Start</BtnStart>
+            <BtnStop onClick={handleStop}>Stop</BtnStop>
           </Top>
           <Text>Investment: ${investment.toFixed(2)}</Text>
           <Camp>
