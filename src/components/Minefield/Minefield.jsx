@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Header from '../Header/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Input } from '../Home/Home'
+import { Input, URL } from '../Home/Home'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Container = styled.div`
   background-color: ${(props) => (props.theme.mode === 'dark' ? 'black' : 'white')};
@@ -61,7 +63,7 @@ const Block = styled.div`
   height: 90px;
   border-radius: 10px;
   overflow: hidden;
-`;
+`
 
 const Front = styled.div`
   position: absolute;
@@ -75,7 +77,7 @@ const Front = styled.div`
   transform-style: preserve-3d;
   backface-visibility: hidden;
   transform: ${props => props.flipped ? 'rotateY(-180deg)' : 'rotateY(0deg)'};
-`;
+`
 
 const Back = styled.div`
   position: absolute;
@@ -131,7 +133,6 @@ const BtnStart = styled.button`
   }
 `
 
-
 const BtnStop = styled.button`
   padding: 10px 20px;
   border: none;
@@ -160,7 +161,7 @@ const Text = styled.div`
   font-weight: bold;
 `
 
-const Roulette = () => {
+const Minefield = () => {
   const { state } = useLocation();
   const initialUser = state?.user;
   const navigate = useNavigate();
@@ -183,7 +184,7 @@ const Roulette = () => {
 
     if (bombs.includes(index)) {
       setGameOver(true);
-      alert('Game Over! Você encontrou uma bomba.');
+      toast.error('Game Over! Você encontrou uma bomba.');
     } else {
       const newValue = investment * (1 + multiplier / 100);
       setInvestment(newValue);
@@ -194,52 +195,56 @@ const Roulette = () => {
     const userBalance = user.balance;
   
     if (inputInvestment > userBalance) {
-      alert('Saldo insuficiente para iniciar o jogo.');
+      toast.error('Saldo insuficiente para iniciar o jogo.');
       return;
     }
   
-    const bombIndexes = [];
-    while (bombIndexes.length < numMines) {
-      const randomIndex = Math.floor(Math.random() * 20);
-      if (!bombIndexes.includes(randomIndex)) {
-        bombIndexes.push(randomIndex);
-      }
-    }
+    fetch(`${URL}/user/${user.user_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ balance: userBalance - inputInvestment }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Erro ao atualizar saldo.');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUser({ ...user, balance: data.balance });
+        toast.success('Saldo atualizado com sucesso!');
   
-    // Atualize o estado bombs com os índices das bombas
-    setBombs(bombIndexes);
-    setGameOver(false); // Reinicia o jogo
-    setFlippedBlocks(Array.from({ length: 20 }, () => false)); // Reinicia os blocos virados
+        const bombIndexes = [];
+        while (bombIndexes.length < numMines) {
+          const randomIndex = Math.floor(Math.random() * 20);
+          if (!bombIndexes.includes(randomIndex)) {
+            bombIndexes.push(randomIndex);
+          }
+        }
   
-    const percentage = bombIndexes.length * 5;
-    setMultiplier(percentage);
-    setInvestment(inputInvestment);
+        setBombs(bombIndexes);
+        setGameOver(false);
+        setFlippedBlocks(Array.from({ length: 20 }, () => false));
+  
+        const percentage = bombIndexes.length * 5
+        setMultiplier(percentage)
+        setInvestment(inputInvestment)
+      })
+      .catch((error) => {
+        console.error(error.message)
+        toast.error('Erro ao atualizar o saldo!')
+      })
   }
+  
 
-  const handleStart = () => {
+  const handleStop = () => {
     const userBalance = user.balance;
-  
-    if (inputInvestment > userBalance) {
-      alert('Saldo insuficiente para iniciar o jogo.');
-      return;
-    }
-  
-    const bombIndexes = [];
-    while (bombIndexes.length < numMines) {
-      const randomIndex = Math.floor(Math.random() * 20);
-      if (!bombIndexes.includes(randomIndex)) {
-        bombIndexes.push(randomIndex);
-      }
-    }
-  
-    // Atualize o estado bombs com os índices das bombas
-    setBombs(bombIndexes);
-    setGameOver(false); // Reinicia o jogo
-    setFlippedBlocks(Array.from({ length: 20 }, () => false)); // Reinicia os blocos virados
-  
-    const percentage = bombIndexes.length * 5;
-    setMultiplier(percentage);
-    setInvestment(inputInvestment);
+    const gainGame = investment;
+
+    const newBalance = userBalance + gainGame;
+
   }
   
   //Amount of bombs
@@ -259,11 +264,11 @@ const Roulette = () => {
         setInputInvestment(value);
       }
   }
-  
+ 
 
   return (
     <Container>
-      <Header user={user} />
+      <Header user={user} setUser={setUser}/>
       <Content>
         <Left>
           <Top>
@@ -288,4 +293,4 @@ const Roulette = () => {
   );
 };
 
-export default Roulette;
+export default Minefield

@@ -7,6 +7,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import Deposit from './Sections/Deposit'
 import Main from './Main'
 
+// const URL = "https://thesauros.up.railway.app/api"
+export const URL = "http://localhost:3333/api";
+
 const Container = styled.div`
   background-color: ${(props) =>
     props.theme.mode === 'dark' ? 'black' : 'white'};
@@ -207,8 +210,8 @@ export const Button = styled.button`
 `
 
 const Home = () => {
-  // const URL = "https://thesauros.up.railway.app/api"
-  const URL = "http://localhost:3333/api"
+ 
+  
 
   const { state } = useLocation()
   const initialUser = state?.user
@@ -417,5 +420,4 @@ const Home = () => {
     </Container>
   )
 }
-
 export default Home
