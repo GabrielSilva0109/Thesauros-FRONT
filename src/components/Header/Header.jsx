@@ -170,7 +170,7 @@ const Header = ({ user }) => {
   const userOn = state?.user
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
-  const [balance, setBalance] = useState(userOn.balance)
+  const [balance, setBalance] = useState(user.balance)
 
   const isActiveLink = (pathname, currentPath) => {
     return pathname === currentPath ? 'active' : ''
@@ -181,10 +181,14 @@ const Header = ({ user }) => {
   }
 
   const fetchBalanceUser = async () => {
-    const response = await fetch(`${URL}/user/${userOn.id}`)
+    const response = await fetch(`${URL}/user/${user.user_id}`)
     const data = await response.json()
-    setBalance = data.balance
+    setBalance(data.balance)
   }
+
+  useEffect(() => {
+    fetchBalanceUser()
+  }, [])
   
   console.log("saldo do user", balance)
 
