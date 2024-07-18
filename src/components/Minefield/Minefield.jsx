@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Header from '../Header/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -213,7 +213,6 @@ const Minefield = () => {
         return response.json();
       })
       .then((data) => {
-        setUser({ ...user, balance: data.balance });
         toast.success('Saldo atualizado com sucesso!');
   
         const bombIndexes = [];
@@ -237,13 +236,10 @@ const Minefield = () => {
         toast.error('Erro ao atualizar o saldo!')
       })
   }
-  
 
   const handleStop = () => {
     const userBalance = user.balance;
-    const gainGame = investment;
-
-    const newBalance = userBalance + gainGame;
+    
 
   }
   
@@ -264,11 +260,10 @@ const Minefield = () => {
         setInputInvestment(value);
       }
   }
- 
 
   return (
     <Container>
-      <Header user={user} setUser={setUser}/>
+      <Header user={user}/>
       <Content>
         <Left>
           <Top>

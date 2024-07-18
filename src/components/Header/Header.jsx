@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
+import {URL} from '../Home/Home'
 import styled from "styled-components"
 import ToggleButton from "../Buttons/Togle"
 
@@ -164,11 +165,12 @@ const Balance = styled.div`
     align-items: center;
 `
 
-const Header = ({ user, setUser }) => {
+const Header = ({ user }) => {
   const { state } = useLocation()
   const userOn = state?.user
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [balance, setBalance] = useState(userOn.balance)
 
   const isActiveLink = (pathname, currentPath) => {
     return pathname === currentPath ? 'active' : ''
@@ -178,8 +180,13 @@ const Header = ({ user, setUser }) => {
     setMenuOpen(!menuOpen)
   }
 
-  useEffect(() => {
-  }, [user.balance]);
+  const fetchBalanceUser = async () => {
+    const response = await fetch(`${URL}/user/${userOn.id}`)
+    const data = await response.json()
+    setBalance = data.balance
+  }
+  
+  console.log("saldo do user", balance)
 
   return (
     <Container>
@@ -201,7 +208,7 @@ const Header = ({ user, setUser }) => {
 
       <Btns>
         <Balance>
-          {userOn.balance}
+          {balance}
         </Balance>
         <ToggleButton />
       </Btns>
