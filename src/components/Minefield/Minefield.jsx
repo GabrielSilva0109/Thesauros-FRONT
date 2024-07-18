@@ -216,7 +216,7 @@ const Roulette = () => {
     setInvestment(inputInvestment);
   }
 
-  const handleStart = () => {
+  const handleStop = () => {
     const userBalance = user.balance;
   
     if (inputInvestment > userBalance) {
