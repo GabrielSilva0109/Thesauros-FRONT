@@ -218,28 +218,12 @@ const Roulette = () => {
 
   const handleStop = () => {
     const userBalance = user.balance;
-  
-    if (inputInvestment > userBalance) {
-      alert('Saldo insuficiente para iniciar o jogo.');
-      return;
-    }
-  
-    const bombIndexes = [];
-    while (bombIndexes.length < numMines) {
-      const randomIndex = Math.floor(Math.random() * 20);
-      if (!bombIndexes.includes(randomIndex)) {
-        bombIndexes.push(randomIndex);
-      }
-    }
-  
-    // Atualize o estado bombs com os índices das bombas
-    setBombs(bombIndexes);
-    setGameOver(false); // Reinicia o jogo
-    setFlippedBlocks(Array.from({ length: 20 }, () => false)); // Reinicia os blocos virados
-  
-    const percentage = bombIndexes.length * 5;
-    setMultiplier(percentage);
-    setInvestment(inputInvestment);
+    const gainGame = investment;
+
+    const newBalance = userBalance + gainGame;
+
+
+    setUser({ ...user, balance: newBalance });
   }
   
   //Amount of bombs
