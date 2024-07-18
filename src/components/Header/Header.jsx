@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import styled from "styled-components"
 import ToggleButton from "../Buttons/Togle"
@@ -164,7 +164,7 @@ const Balance = styled.div`
     align-items: center;
 `
 
-const Header = ({ user }) => {
+const Header = ({ user, setUser }) => {
   const { state } = useLocation()
   const userOn = state?.user
   const location = useLocation()
@@ -177,6 +177,9 @@ const Header = ({ user }) => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
+
+  useEffect(() => {
+  }, [user.balance]);
 
   return (
     <Container>
